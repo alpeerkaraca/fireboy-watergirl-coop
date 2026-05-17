@@ -372,6 +372,12 @@ export class MultiplayerClient {
   }
 
   _bindWebRTCEvents() {
+    // Remove old listeners first to prevent duplicates on reconnect
+    this.socket.off("call:offer");
+    this.socket.off("call:answer");
+    this.socket.off("call:ice-candidate");
+    this.socket.off("call:hangup");
+
     this.socket.on("call:offer", async (data) => {
       await this.handleOffer(data.sdp);
     });
@@ -379,6 +385,7 @@ export class MultiplayerClient {
       await this.handleAnswer(data.sdp);
     });
     this.socket.on("call:ice-candidate", async (data) => {
+      console.log(`[${this.isHost ? "HOST" : "GUEST"}] Received remote ICE candidate:`, data.candidate?.type, data.candidate?.protocol);
       await this.handleIceCandidate(data.candidate);
     });
     this.socket.on("call:hangup", () => {
