@@ -247,9 +247,28 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (magicToken) {
     window.history.replaceState({}, document.title, window.location.pathname);
     try {
+      console.log("[auto-verify] Verifying token...");
       const data = await multiplayer.verifyToken(magicToken);
-      if (data) console.log("Magic link verified — logged in as", data.user?.username);
-    } catch(e) { console.warn("Auto-verify failed:", e.message); }
+      console.log("[auto-verify] Response:", data);
+      if (data) {
+        console.log("[auto-verify] Logged in as", data.user?.username);
+        updateAuthUI();
+      }
+    } catch(e) {
+      console.error("[auto-verify] Failed:", e.message, e);
+      // Also try via REST directly as fallback
+      const res = await fetch(`${window.location.origin}/api/auth/verify?token=${encodeURIComponent(magicToken)}`);
+      console.log("[auto-verify] Direct fetch status:", res.status);
+      if (res.ok) {
+        const data = await res.json();
+        console.log("[auto-verify] Direct fetch data:", data);
+        localStorage.setItem("fwg_token", data.token);
+        localStorage.setItem("fwg_user", JSON.stringify(data.user));
+        multiplayer.token = data.token;
+        multiplayer.user = data.user;
+        updateAuthUI();
+      }
+    }
   }
 
   initAuthUI();
