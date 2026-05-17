@@ -160,6 +160,26 @@ Looking back from the end, here's what exists:
 
 ---
 
+### Chapter 13: The Signaling War
+
+The video stream wouldn't render on the guest. We had the WebRTC signaling flowing, ICE candidates exchanged, `ontrack` firing on the guest — but the video element stayed black. `readyState: 0`. HAVE_NOTHING.
+
+We tried everything. `canvas.captureStream(30)` from Ruffle's WebGL canvas — black frames. `getDisplayMedia` screen sharing — worked but forced the host to select a window every time. User rejected this. Synthetic keyboard events to control Watergirl — failed because of `isTrusted`. The FFDec AS3 modification — failed because the decompiled code wouldn't recompile.
+
+The answer was a proxy canvas. A hidden 2D canvas captures each frame from the WebGL canvas using `drawImage()`, and `captureStream(30)` captures from the proxy. 2D canvases don't have the `preserveDrawingBuffer` problem. It worked.
+
+But the stream still died. ICE state: `checking` → `disconnected`. Hours of debugging. Then we found it: the server had **two identical sets** of WebRTC signaling event handlers. Every `call:offer`, `call:answer`, `call:ice-candidate` was being emitted to the room **twice**. The first call set the `RTCPeerConnection` state to `stable`. The second call tried to set it again and threw `InvalidStateError`. The connection died.
+
+One deleted code block. Four lines of duplicate `socket.on(...)`. The entire video pipeline started working.
+
+### Chapter 14: The Cloud
+
+With video streaming working, we deployed the full stack to a VDS in Turkey. Podman containers for PostgreSQL, Valkey, and Coturn. Nginx with TLS 1.3, Cloudflare with WebSocket support enabled. Gmail SMTP with PTR records for magic link emails.
+
+The game runs at `https://fireboy-coop.alpeerkaraca.me`. Two players login, create a room, click Forest Temple, and play. The host runs the original Flash game through our custom Ruffle build. The guest watches a WebRTC video stream and controls Watergirl with W, A, D keys. The keyboard input travels through WebSocket, gets injected into Ruffle's input manager via our Rust patch, and Watergirl moves as if the guest were sitting at the host's keyboard.
+
+Zero desync. One game instance. Two players. The dream works.
+
 ### Epilogue: What Remains
 
 The game works. Two players on different machines can open the same temple, one hosts and the other watches and plays, and Watergirl jumps when the guest presses W. The music plays without glitching. The canvas scales to fill the screen. The leaderboard accepts scores. Progress saves between sessions.

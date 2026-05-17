@@ -560,6 +560,64 @@ cd server && npm start
 
 ---
 
+## Phase 16: Production Deployment & WebRTC Breakthrough (2026-05-17)
+
+### The WebRTC Signaling War
+The multiplayer video streaming went through 15+ iterations. The core issue: duplicate Socket.IO event handlers in the server code. Two identical sets of `call:offer`/`call:answer`/`call:ice-candidate` listeners caused every signaling event to be emitted twice. This corrupted the RTCPeerConnection state machine — `setRemoteDescription` called twice in `stable` state → `InvalidStateError` → ICE disconnected.
+
+**Fix**:
+- Removed duplicate signaling handlers from `server/src/websocket/socket.js`
+- Added `_webRTCBound` guard in `multiplayer.js` to prevent rebinding
+- Added `_isStreamingInit` double-trigger protection
+- Changed from `canvas.captureStream()` (failed with WebGL) to proxy 2D canvas that copies WebGL frames via `drawImage()` each frame
+
+### The WebGL Canvas Capture Problem
+`canvas.captureStream(30)` on Ruffle's WebGL canvas produced empty frames because Ruffle doesn't set `preserveDrawingBuffer: true`. Multiple approaches tried:
+- Synthetic DOM keyboard events → failed (isTrusted: false)
+- FFDec AS3 modification → failed (recompilation errors)
+- `getDisplayMedia` screen sharing → rejected (user gesture required, wrong UX)
+- **Solution**: Proxy 2D canvas copies WebGL frames each frame → `captureStream()` from proxy
+
+### Infrastructure Deployed
+| Component | Status |
+|-----------|--------|
+| PostgreSQL 17 (podman) | Healthy on 54322 |
+| Valkey 8 (podman) | Running on 54323 |
+| Coturn 4.6 (podman) | Running on 3478 (STUN/TURN relay) |
+| Nginx | TLS 1.3, gRPC passthrough, rate limiting |
+| Cloudflare | HTTPS proxy, WebSockets enabled |
+| Express on :3000 | Compression, static serving, immutable caching |
+| Gmail SMTP | PTR record set, magic link emails delivered |
+
+### Critical Production Fixes
+- JWT_SECRET: crashes in production if not set (no random fallback)
+- CORS_ORIGIN: crashes in production if not set (no `*` fallback)
+- Email: PTR record `mail.alpeerkaraca.me` → `87.232.127.104`
+- API_BASE: dynamic `window.location.origin` (no hardcoded localhost)
+- Immutable caching: `.wasm`/`.swf` files 1-year cache
+- Compression: gzip on all text responses
+
+### The Online Multiplayer Flow (Final)
+```
+1. Both players login via magic link email
+2. Host creates room (4-char code), Guest joins
+3. Both click same temple
+4. Host loads Ruffle SWF, Guest shows video waiting screen
+5. Guest emits "stream:start" → Host starts proxy canvas capture
+6. 2D proxy copies WebGL frames 60fps → captureStream(30) → WebRTC → Guest <video>
+7. Guest presses WASD → WebSocket key relay → Host's simulate_key_down/up → Watergirl moves
+8. Zero desync — single game instance, single physics world
+```
+
+### Gemini Review: ONAYLANDI
+All 4 Gemini review cycles approved:
+1. Multiplayer architecture (WebRTC Stream vs Input Mirroring)
+2. WebRTC implementation (signaling, ICE, STUN/TURN)
+3. Multi-tenant architecture design
+4. Security & performance audit (19/19 OWASP, 6 bottlenecks fixed)
+
+---
+
 ## File Inventory
 
 ```
