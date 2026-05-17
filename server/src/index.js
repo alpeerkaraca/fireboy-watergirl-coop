@@ -22,6 +22,7 @@ const projectRoot = path.join(__dirname, "../../");
 const app = express();
 const httpServer = createServer(app);
 
+app.set("trust proxy", 1);
 app.use(compression());
 app.use(helmet({
   contentSecurityPolicy: false,
