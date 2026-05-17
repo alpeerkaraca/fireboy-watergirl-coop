@@ -214,15 +214,19 @@ export class MultiplayerClient {
     }
   }
 
-  async startStreaming(canvas) {
+  async startStreaming() {
     if (!this.isHost || !this.roomId) return;
     const iceServers = await this._getIceServers();
     this._pc = new RTCPeerConnection({ iceServers });
 
-    // Capture Ruffle canvas — use 0 to capture all frames (WebGL needs this)
-    const stream = canvas.captureStream(0);
+    // getDisplayMedia captures the full tab including WebGL canvas
+    const stream = await navigator.mediaDevices.getDisplayMedia({
+      video: { frameRate: 30 },
+      audio: false,
+    });
     const videoTrack = stream.getVideoTracks()[0];
     if (videoTrack) this._pc.addTrack(videoTrack, stream);
+    videoTrack?.addEventListener("ended", () => this._pc?.close());
 
     // Send ICE candidates to peer
     this._pc.onicecandidate = (e) => {

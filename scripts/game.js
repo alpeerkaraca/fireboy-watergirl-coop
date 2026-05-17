@@ -46,7 +46,7 @@ function startGame(temple) {
   const isOnline = multiplayer.isConnected && multiplayer.roomId;
   if (isOnline && multiplayer.isHost) {
     document.getElementById("game-title").textContent =
-      `HOST — Arrow Keys = Fireboy | Streaming to Guest`;
+      `HOST — Arrow Keys = Fireboy | Select tab when prompted`;
     document.getElementById("game-online-status").textContent = "Live";
     document.getElementById("game-online-status").style.color = "#e74c3c";
     startGameAsHost(temple);
@@ -126,13 +126,9 @@ function showGuestWaitingScreen() {
 // === Host: Start streaming when guest requests ===
 
 function setupHostStream() {
-  // Listen for guest's stream request, then start
   multiplayer.socket?.on("stream:start-request", () => {
-    const canvas = document.querySelector("#game-canvas canvas");
-    if (canvas) {
-      multiplayer.startStreaming(canvas);
-      console.log("WebRTC stream started — canvas captured at 30fps");
-    }
+    multiplayer.startStreaming();
+    console.log("WebRTC stream requested — host should select the game tab");
   });
 }
 
