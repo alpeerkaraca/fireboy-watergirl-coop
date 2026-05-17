@@ -222,7 +222,10 @@ export class MultiplayerClient {
     console.log("[HOST] Fetching ICE servers...");
     const iceServers = await this._getIceServers();
     console.log("[HOST] ICE servers:", iceServers.length);
-    this._pc = new RTCPeerConnection({ iceServers });
+    this._pc = new RTCPeerConnection({
+      iceServers,
+      iceTransportPolicy: "relay", // Force TURN relay — bypasses NAT issues
+    });
 
     console.log("[HOST] Requesting getDisplayMedia...");
     const stream = await navigator.mediaDevices.getDisplayMedia({
@@ -285,7 +288,10 @@ export class MultiplayerClient {
     console.log("[GUEST] Received offer, setting up peer connection...");
     const iceServers = await this._getIceServers();
     console.log("[GUEST] ICE servers:", iceServers.length);
-    this._pc = new RTCPeerConnection({ iceServers });
+    this._pc = new RTCPeerConnection({
+      iceServers,
+      iceTransportPolicy: "relay",
+    });
 
     this._pc.onicecandidate = (e) => {
       if (e.candidate) {
@@ -338,7 +344,10 @@ export class MultiplayerClient {
     if (!this._pc) return;
     try {
       await this._pc.addIceCandidate(new RTCIceCandidate(candidate));
-    } catch(e) {}
+      console.log(`[${this.isHost ? "HOST" : "GUEST"}] Added ICE candidate:`, candidate.type, candidate.protocol);
+    } catch(e) {
+      console.warn(`[${this.isHost ? "HOST" : "GUEST"}] ICE candidate failed:`, e.message);
+    }
   }
 
   hangUp() {
