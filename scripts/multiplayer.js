@@ -232,22 +232,15 @@ export class MultiplayerClient {
     console.log("[HOST] ICE servers:", iceServers.length);
     
     this._pc = new RTCPeerConnection({ iceServers });
-    
-    console.log("[HOST] Waiting 1.5s for Ruffle canvas to render first frame...");
-    await new Promise(r => setTimeout(r, 1500));
-    
-    const canvas = document.querySelector("#game-canvas canvas");
-    if (!canvas) {
-      console.error("[HOST] No Ruffle canvas found");
-      return;
-    }
-    console.log("[HOST] Canvas:", canvas.width, "x", canvas.height);
-    const stream = canvas.captureStream(30);
+
+    console.log("[HOST] Requesting screen capture...");
+    const stream = await navigator.mediaDevices.getDisplayMedia({
+      video: { frameRate: 30 },
+      audio: false,
+    });
     const videoTrack = stream.getVideoTracks()[0];
-    if (videoTrack) {
-      console.log("[HOST] Video track readyState:", videoTrack.readyState);
-      this._pc.addTrack(videoTrack, stream);
-    }
+    console.log("[HOST] Screen capture — track:", videoTrack?.label, "readyState:", videoTrack?.readyState);
+    if (videoTrack) this._pc.addTrack(videoTrack, stream);
     videoTrack?.addEventListener("ended", () => {
       console.warn("[HOST] Video track ended");
       this.hangUp();
@@ -306,7 +299,7 @@ export class MultiplayerClient {
       this._pc.onicecandidate = (e) => {
         if (e.candidate) {
           const json = e.candidate.toJSON();
-          console.log("[GUEST] Local ICE candidate found:", json.type, json.protocol);
+          console.log("[GUEST] Local ICE candidate found:", JSON.stringify(json));
           this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: json });
         }
       };

@@ -46,7 +46,7 @@ function startGame(temple) {
   const isOnline = multiplayer.isConnected && multiplayer.roomId;
   if (isOnline && multiplayer.isHost) {
     document.getElementById("game-title").textContent =
-      `HOST — Arrow Keys = Fireboy | Streaming to Guest`;
+      `HOST — Arrow Keys = Fireboy | Click Share Button`;
     document.getElementById("game-online-status").textContent = "Live";
     document.getElementById("game-online-status").style.color = "#e74c3c";
     startGameAsHost(temple);
@@ -103,45 +103,29 @@ function showGuestWaitingScreen() {
   multiplayer.socket?.emit("stream:start", { roomId: multiplayer.roomId });
 
   // Listen for incoming video stream
-  let _guestOverlay = null;
   multiplayer.onRemoteStream = (stream) => {
     console.log("[GUEST] onRemoteStream — tracks:", stream.getVideoTracks().length);
     const video = document.getElementById("remote-video");
     if (!video) return;
 
-    // Reset video element state to force re-decode
+    // Reset + force decode
     video.pause();
     video.srcObject = null;
     video.load();
     video.muted = true;
     video.autoplay = true;
     video.playsInline = true;
-
     video.srcObject = stream;
-    video.style.setProperty("border", "2px solid #4ecca3", "important");
-    video.style.setProperty("z-index", "10", "important");
-    console.log("[GUEST] srcObject set, readyState:", video.readyState);
+    video.style.border = "2px solid #4ecca3";
 
     video.onloadedmetadata = () => {
-      console.log("[GUEST] loadedmetadata —", video.videoWidth, "x", video.videoHeight);
-      video.play().catch(e => console.warn("[GUEST] autoplay blocked:", e.message));
+      console.log("[GUEST] loadedmetadata —", video.videoWidth, "x", video.videoHeight, "paused:", video.paused);
+      video.play().catch(e => console.warn("[GUEST] play rejected:", e.message));
     };
-
-    // Click-to-start overlay for browser autoplay policy
-    _guestOverlay = document.createElement("div");
-    _guestOverlay.innerHTML = '<button style="padding:15px 30px;font-size:20px;cursor:pointer;background:#4ecca3;border:none;border-radius:8px;color:#fff;font-weight:600">Stream Sync</button>';
-    _guestOverlay.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:100;";
-    _guestOverlay.onclick = () => {
-      video.play().then(() => {
-        _guestOverlay.remove();
-        _guestOverlay = null;
-        console.log("[GUEST] Stream playing via gesture");
-      }).catch(e => console.error("[GUEST] Play failed:", e));
-    };
-    document.getElementById("game-canvas").appendChild(_guestOverlay);
+    video.onplaying = () => console.log("[GUEST] Video onplaying fired");
 
     const statusP = document.querySelector("#game-canvas p");
-    if (statusP) statusP.textContent = "Stream connected — click Sync Stream!";
+    if (statusP) statusP.textContent = "Stream connected";
   };
 
   multiplayer.onStreamDisconnected = () => {
@@ -154,8 +138,22 @@ function showGuestWaitingScreen() {
 
 function setupHostStream() {
   multiplayer.socket?.on("stream:start-request", () => {
-    multiplayer.startStreaming();
-    console.log("WebRTC stream started — canvas captured at 30fps");
+    // Show share button — getDisplayMedia needs user gesture
+    const bar = document.querySelector(".injection-test-bar");
+    if (bar && !document.getElementById("btn-share-screen")) {
+      const btn = document.createElement("button");
+      btn.id = "btn-share-screen";
+      btn.textContent = "Click to Start Streaming";
+      btn.style.cssText = "background:#e74c3c;color:#fff;padding:8px 16px;border:none;border-radius:4px;cursor:pointer;font-weight:600;margin-right:8px";
+      btn.onclick = async () => {
+        btn.textContent = "Select game tab/window...";
+        btn.disabled = true;
+        await multiplayer.startStreaming();
+        btn.textContent = "Streaming Live";
+        btn.style.background = "#4ecca3";
+      };
+      bar.insertBefore(btn, bar.firstChild);
+    }
   });
 }
 
