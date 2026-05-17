@@ -27,7 +27,7 @@ function getTransporter() {
 }
 
 export async function sendMagicLink(email, token) {
-  const link = `${process.env.APP_URL || "http://localhost:3000"}/api/auth/verify?token=${token}`;
+  const link = `${process.env.APP_URL || "http://localhost:3000"}?token=${token}`;
   const from = process.env.EMAIL_FROM || process.env.SMTP_USER || "noreply@fireboy-coop.local";
 
   const transporter = getTransporter();

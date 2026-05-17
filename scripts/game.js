@@ -269,6 +269,22 @@ document.addEventListener("DOMContentLoaded", () => {
     backToMenu();
   });
 
+  // Auto-verify token from magic link URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const magicToken = urlParams.get("token");
+  if (magicToken) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+    (async () => {
+      try {
+        const data = await multiplayer.verifyToken(magicToken);
+        if (data) {
+          updateAuthUI();
+          console.log("Magic link verified — logged in as", data.user?.username);
+        }
+      } catch(e) { console.warn("Auto-verify failed:", e.message); }
+    })();
+  }
+
   updateAuthUI();
   document.addEventListener("auth:done", updateAuthUI);
   document.addEventListener("auth:logout", updateAuthUI);
