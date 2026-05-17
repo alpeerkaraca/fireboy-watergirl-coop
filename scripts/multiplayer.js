@@ -301,7 +301,15 @@ export class MultiplayerClient {
     };
 
     console.log("[GUEST] Creating answer...");
-    await this._pc.setRemoteDescription(new RTCSessionDescription(sdp));
+    try {
+      await this._pc.setRemoteDescription(new RTCSessionDescription(sdp));
+    } catch (e) {
+      if (e.message.includes("wrong state")) {
+        console.warn("[GUEST] Already processing an offer, ignoring duplicate");
+        return;
+      }
+      throw e;
+    }
     const answer = await this._pc.createAnswer();
     await this._pc.setLocalDescription(answer);
     console.log("[GUEST] Answer sent via socket");

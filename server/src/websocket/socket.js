@@ -67,7 +67,11 @@ export function initSocket(httpServer) {
 
     socket.on("call:answer", (data) => {
       console.log(`[WS] call:answer from ${socket.id} in room ${data.roomId}`);
-      socket.to(data.roomId).emit("call:answer", { playerId: socket.id, sdp: data.sdp });
+      // Only relay ONCE — check if already sent
+      if (!socket._answerSent) {
+        socket._answerSent = true;
+        socket.to(data.roomId).emit("call:answer", { playerId: socket.id, sdp: data.sdp });
+      }
     });
 
     socket.on("call:ice-candidate", (data) => {

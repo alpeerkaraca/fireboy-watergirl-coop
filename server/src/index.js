@@ -38,7 +38,7 @@ app.use(express.json());
 
 // Serve static files with long-term caching for assets
 app.use(express.static(projectRoot, {
-  maxAge: "1d",
+  maxAge: 0, // disabled during debug — set to "1d" for production
   setHeaders: (res, path) => {
     if (path.endsWith(".wasm") || path.endsWith(".swf")) {
       res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
