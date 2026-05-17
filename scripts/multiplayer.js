@@ -245,11 +245,12 @@ export class MultiplayerClient {
       this._pc?.close();
     });
 
-    // ICE candidate logging
+    // ICE candidate logging — serialize to plain object for Socket.IO
     this._pc.onicecandidate = (e) => {
       if (e.candidate) {
-        console.log("[HOST] ICE candidate:", e.candidate.type, e.candidate.protocol);
-        this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: e.candidate });
+        const json = e.candidate.toJSON();
+        console.log("[HOST] ICE candidate:", json.type, json.protocol, json.candidate?.substring(0, 30));
+        this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: json });
       } else {
         console.log("[HOST] ICE gathering complete (null candidate)");
       }
@@ -295,8 +296,9 @@ export class MultiplayerClient {
 
     this._pc.onicecandidate = (e) => {
       if (e.candidate) {
-        console.log("[GUEST] ICE candidate:", e.candidate.type);
-        this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: e.candidate });
+        const json = e.candidate.toJSON();
+        console.log("[GUEST] ICE candidate:", json.type, json.protocol);
+        this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: json });
       }
     };
 
@@ -330,14 +332,25 @@ export class MultiplayerClient {
 
   async handleAnswer(sdp) {
     if (!this._pc) return;
-    // Guard against duplicate answers
-    if (this._pc.signalingState !== "have-local-offer") {
-      console.warn("[HOST] Ignoring duplicate answer — state:", this._pc.signalingState);
+    // Serialize answer processing to prevent race conditions
+    if (this._answering) {
+      console.warn("[HOST] Already processing an answer, queuing...");
       return;
     }
-    console.log("[HOST] Setting remote answer...");
-    await this._pc.setRemoteDescription(new RTCSessionDescription(sdp));
-    console.log("[HOST] Remote answer set — connected");
+    if (this._pc.signalingState !== "have-local-offer") {
+      console.warn("[HOST] State is", this._pc.signalingState, "— cannot accept answer");
+      return;
+    }
+    this._answering = true;
+    try {
+      console.log("[HOST] Setting remote answer...");
+      await this._pc.setRemoteDescription(new RTCSessionDescription(sdp));
+      console.log("[HOST] Remote answer set — state:", this._pc.signalingState);
+    } catch(e) {
+      console.error("[HOST] setRemoteDescription failed:", e.message);
+    } finally {
+      this._answering = false;
+    }
   }
 
   async handleIceCandidate(candidate) {
