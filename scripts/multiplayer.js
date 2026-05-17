@@ -219,9 +219,10 @@ export class MultiplayerClient {
     const iceServers = await this._getIceServers();
     this._pc = new RTCPeerConnection({ iceServers });
 
-    // Capture Ruffle canvas at 30fps
-    const stream = canvas.captureStream(30);
-    stream.getVideoTracks().forEach(track => this._pc.addTrack(track, stream));
+    // Capture Ruffle canvas — use 0 to capture all frames (WebGL needs this)
+    const stream = canvas.captureStream(0);
+    const videoTrack = stream.getVideoTracks()[0];
+    if (videoTrack) this._pc.addTrack(videoTrack, stream);
 
     // Send ICE candidates to peer
     this._pc.onicecandidate = (e) => {
