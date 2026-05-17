@@ -417,15 +417,14 @@ export class MultiplayerClient {
   }
 
   _bindWebRTCEvents() {
-    if (!this.socket) return;
+    if (this._webRTCBound || !this.socket) return;
+    this._webRTCBound = true;
 
-    // ESKİ LISTENERS'LARI TEMİZLE (Kökten Çözüm)
     this.socket.off("call:offer");
     this.socket.off("call:answer");
     this.socket.off("call:ice-candidate");
     this.socket.off("call:hangup");
 
-    // CANLI VE GÜVENLİ DİNLEYİCİLERİ BAĞLA
     this.socket.on("call:offer", async (data) => {
       await this.handleOffer(data.sdp);
     });

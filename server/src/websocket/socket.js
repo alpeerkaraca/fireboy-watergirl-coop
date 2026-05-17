@@ -67,11 +67,7 @@ export function initSocket(httpServer) {
 
     socket.on("call:answer", (data) => {
       console.log(`[WS] call:answer from ${socket.id} in room ${data.roomId}`);
-      // Only relay ONCE — check if already sent
-      if (!socket._answerSent) {
-        socket._answerSent = true;
-        socket.to(data.roomId).emit("call:answer", { playerId: socket.id, sdp: data.sdp });
-      }
+      socket.to(data.roomId).emit("call:answer", { playerId: socket.id, sdp: data.sdp });
     });
 
     socket.on("call:ice-candidate", (data) => {
@@ -105,33 +101,7 @@ export function initSocket(httpServer) {
       });
     });
 
-    // === WebRTC Signaling ===
-    socket.on("call:offer", (data) => {
-      socket.to(data.roomId).emit("call:offer", {
-        playerId: socket.id,
-        sdp: data.sdp,
-      });
-    });
-
-    socket.on("call:answer", (data) => {
-      socket.to(data.roomId).emit("call:answer", {
-        playerId: socket.id,
-        sdp: data.sdp,
-      });
-    });
-
-    socket.on("call:ice-candidate", (data) => {
-      socket.to(data.roomId).emit("call:ice-candidate", {
-        playerId: socket.id,
-        candidate: data.candidate,
-      });
-    });
-
-    socket.on("call:hangup", (data) => {
-      socket.to(data.roomId).emit("call:hangup", {
-        playerId: socket.id,
-      });
-    });
+    // WebRTC Signaling — defined above (no duplicates)
 
     socket.on("stage:complete", (data) => {
       io.to(data.roomId).emit("stage:completed", {
