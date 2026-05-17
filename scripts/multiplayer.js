@@ -276,6 +276,12 @@ export class MultiplayerClient {
 
   async handleOffer(sdp) {
     if (this.isHost) return;
+    // Guard against duplicate offers (Socket.IO may replay events on reconnect)
+    if (this._handlingOffer) {
+      console.warn("[GUEST] Already processing an offer, ignoring duplicate");
+      return;
+    }
+    this._handlingOffer = true;
     console.log("[GUEST] Received offer, setting up peer connection...");
     const iceServers = await this._getIceServers();
     console.log("[GUEST] ICE servers:", iceServers.length);
@@ -318,7 +324,14 @@ export class MultiplayerClient {
 
   async handleAnswer(sdp) {
     if (!this._pc) return;
+    // Guard against duplicate answers
+    if (this._pc.signalingState !== "have-local-offer") {
+      console.warn("[HOST] Ignoring duplicate answer — state:", this._pc.signalingState);
+      return;
+    }
+    console.log("[HOST] Setting remote answer...");
     await this._pc.setRemoteDescription(new RTCSessionDescription(sdp));
+    console.log("[HOST] Remote answer set — connected");
   }
 
   async handleIceCandidate(candidate) {
