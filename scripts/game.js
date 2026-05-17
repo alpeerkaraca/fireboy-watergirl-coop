@@ -119,7 +119,7 @@ function showGuestWaitingScreen() {
     video.srcObject = stream;
     video.style.border = "2px solid #4ecca3";
 
-ideo.onloadedmetadata = () => {
+video.onloadedmetadata = () => {
     console.log("[GUEST] loadedmetadata —", video.videoWidth, "x", video.videoHeight);
     video.play().catch(e => {
       console.warn("[GUEST] Browser blocked autoplay, waiting for user click:", e.message);
