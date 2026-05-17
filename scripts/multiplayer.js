@@ -368,26 +368,32 @@ export class MultiplayerClient {
   }
 
   _bindWebRTCEvents() {
-    // Remove old listeners first to prevent duplicates on reconnect
-    this.socket.off("call:offer");
-    this.socket.off("call:answer");
-    this.socket.off("call:ice-candidate");
-    this.socket.off("call:hangup");
-
-    this.socket.on("call:offer", async (data) => {
-      await this.handleOffer(data.sdp);
-    });
-    this.socket.on("call:answer", async (data) => {
-      await this.handleAnswer(data.sdp);
-    });
-    this.socket.on("call:ice-candidate", async (data) => {
-      console.log(`[${this.isHost ? "HOST" : "GUEST"}] Received remote ICE candidate:`, data.candidate?.type, data.candidate?.protocol);
-      await this.handleIceCandidate(data.candidate);
-    });
-    this.socket.on("call:hangup", () => {
+    // Use once() to prevent duplicate processing from reconnects
+    const bindOffer = () => {
+      this.socket.once("call:offer", async (data) => {
+        await this.handleOffer(data.sdp);
+        bindOffer(); // re-register for next cycle
+      });
+    };
+    const bindAnswer = () => {
+      this.socket.once("call:answer", async (data) => {
+        await this.handleAnswer(data.sdp);
+        bindAnswer();
+      });
+    };
+    const bindIce = () => {
+      this.socket.once("call:ice-candidate", async (data) => {
+        await this.handleIceCandidate(data.candidate);
+        bindIce(); // re-register for more candidates
+      });
+    };
+    this.socket.once("call:hangup", () => {
       this.hangUp();
       this.onStreamDisconnected?.();
     });
+    bindOffer();
+    bindAnswer();
+    bindIce();
   }
 }
 
