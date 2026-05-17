@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Fireboy & Watergirl — Online Co-op</title>
+  <link rel="stylesheet" href="./styles/styles.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header id="main-header">
+    <div class="header-left">
+      <span class="logo-text">FW</span>
+      <span class="logo-sub">Fireboy & Watergirl</span>
+    </div>
+    <div class="header-right">
+      <span id="user-display" class="user-display"></span>
+      <button id="btn-auth" class="btn-header">Login</button>
+      <button id="btn-leaderboard" class="btn-header">Leaderboard</button>
+      <button id="btn-lobby" class="btn-header">Online Co-op</button>
+    </div>
+  </header>
+
+  <!-- Temple Selection Screen -->
+  <main id="screen-select">
+    <div class="select-hero">
+      <h1>Choose Your Temple</h1>
+      <p>Two players. Four temples. One goal — reach the exit together.</p>
+    </div>
+    <div class="temple-grid" id="temple-grid">
+      <!-- Forest Temple -->
+      <div class="temple-card" data-temple="forest">
+        <div class="temple-bg" style="background: linear-gradient(135deg, #2d5a1e, #4a8c3f)">
+          <div class="temple-icon">🌳</div>
+        </div>
+        <div class="temple-meta">
+          <h3>Forest Temple</h3>
+          <span>32 levels</span>
+          <span class="temple-desc">The original. Learn the basics of fire, water, and teamwork.</span>
+        </div>
+      </div>
+      <!-- Light Temple -->
+      <div class="temple-card" data-temple="light">
+        <div class="temple-bg" style="background: linear-gradient(135deg, #8B6914, #DAA520)">
+          <div class="temple-icon">🔆</div>
+        </div>
+        <div class="temple-meta">
+          <h3>Light Temple</h3>
+          <span>41 levels</span>
+          <span class="temple-desc">Bend light beams, rotate mirrors, master new mechanics.</span>
+        </div>
+      </div>
+      <!-- Ice Temple -->
+      <div class="temple-card" data-temple="ice">
+        <div class="temple-bg" style="background: linear-gradient(135deg, #1e5f74, #6bb8c7)">
+          <div class="temple-icon">❄️</div>
+        </div>
+        <div class="temple-meta">
+          <h3>Ice Temple</h3>
+          <span>41 levels</span>
+          <span class="temple-desc">Freezing winds, melting ice, and slippery surfaces await.</span>
+        </div>
+      </div>
+      <!-- Crystal Temple -->
+      <div class="temple-card" data-temple="crystal">
+        <div class="temple-bg" style="background: linear-gradient(135deg, #3d2a6e, #7a5ea7)">
+          <div class="temple-icon">💎</div>
+        </div>
+        <div class="temple-meta">
+          <h3>Crystal Temple</h3>
+          <span>4 levels</span>
+          <span class="temple-desc">Portals, mirrors, and the final challenge.</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Level Selection Screen -->
+  <main id="screen-levels" style="display:none">
+    <div class="levels-header">
+      <button id="btn-back-temples" class="btn-back">&larr; Back to Temples</button>
+      <h2 id="levels-title">Select Level</h2>
+    </div>
+    <div class="level-grid" id="level-grid"></div>
+  </main>
+
+  <!-- Game Screen -->
+  <div id="screen-game" style="display:none">
+    <div id="game-header">
+      <button id="btn-back-menu" class="btn-back">&larr; Menu</button>
+      <span id="game-title"></span>
+      <span id="game-online-status"></span>
+    </div>
+    <div id="game-canvas"></div>
+    <div id="touch-controls-wrapper">
+      <div id="touch-controls-player1">
+        <button id="left1" class="touch-button">⬅</button>
+        <button id="right1" class="touch-button">➡</button>
+        <button id="up1" class="touch-button">⬆</button>
+      </div>
+      <div id="touch-controls-player2">
+        <button id="left2" class="touch-button">⬅</button>
+        <button id="right2" class="touch-button">➡</button>
+        <button id="up2" class="touch-button">⬆</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard Modal -->
+  <div id="leaderboard-modal" style="display:none">
+    <div class="modal-backdrop" id="lb-backdrop"></div>
+    <div class="modal-dialog" style="width:440px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h3 style="margin:0;color:#ff6b35">Leaderboard</h3>
+        <button id="lb-close" style="background:none;border:none;color:#888;font-size:18px;cursor:pointer;padding:4px 8px">&times;</button>
+      </div>
+      <select id="lb-temple-filter">
+        <option value="">All Temples</option>
+        <option value="forest">Forest Temple</option>
+        <option value="light">Light Temple</option>
+        <option value="ice">Ice Temple</option>
+        <option value="crystal">Crystal Temple</option>
+      </select>
+      <div id="lb-entries" style="max-height:300px;overflow-y:auto;margin-top:8px"></div>
+    </div>
+  </div>
+
+  <!-- Custom Ruffle build with simulate_key_down/up API -->
+  <script type="module" src="./ruffle-build/ruffle-player.js"></script>
+  <!-- Main entry -->
+  <script type="module" src="scripts/game.js"></script>
+</body>
+</html>
