@@ -70,8 +70,7 @@ export class MultiplayerClient {
       import("https://cdn.socket.io/4.8.1/socket.io.esm.min.js").then(({ io }) => {
         this.socket = io(API_BASE, {
           auth: { token: this.token },
-          transports: ["websocket"],
-          upgrade: false,
+          transports: ["websocket", "polling"],
         });
 
         this.socket.on("connect", () => {
