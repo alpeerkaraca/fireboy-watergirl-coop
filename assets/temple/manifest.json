@@ -1,0 +1,2874 @@
+{
+  "forest": {
+    "temple": "Forest Temple",
+    "key": "forest",
+    "sprites": {
+      "FireBoy": {
+        "symbolId": "243",
+        "frames": 1,
+        "path": "sprites/FireBoy.png"
+      },
+      "WaterGirl": {
+        "symbolId": "840",
+        "frames": 1,
+        "path": "sprites/WaterGirl.png"
+      },
+      "FireBoystairs": {
+        "symbolId": "250",
+        "frames": 25,
+        "path": "sprites/FireBoystairs.png"
+      },
+      "WaterGirlStairs": {
+        "symbolId": "876",
+        "frames": 35,
+        "path": "sprites/WaterGirlStairs.png"
+      },
+      "GroundBox1": {
+        "symbolId": "288",
+        "frames": 1,
+        "path": "sprites/GroundBox1.png"
+      },
+      "GroundBox2": {
+        "symbolId": "291",
+        "frames": 1,
+        "path": "sprites/GroundBox2.png"
+      },
+      "GroundBox3": {
+        "symbolId": "294",
+        "frames": 1,
+        "path": "sprites/GroundBox3.png"
+      },
+      "GroundBox4": {
+        "symbolId": "297",
+        "frames": 1,
+        "path": "sprites/GroundBox4.png"
+      },
+      "GroundBox5": {
+        "symbolId": "300",
+        "frames": 1,
+        "path": "sprites/GroundBox5.png"
+      },
+      "GroundBoxHalf": {
+        "symbolId": "303",
+        "frames": 1,
+        "path": "sprites/GroundBoxHalf.png"
+      },
+      "GroundTri_1": {
+        "symbolId": "306",
+        "frames": 1,
+        "path": "sprites/GroundTri_1.png"
+      },
+      "BlueDiamond": {
+        "symbolId": "100",
+        "frames": 40,
+        "path": "sprites/BlueDiamond.png"
+      },
+      "RedDiamond": {
+        "symbolId": "719",
+        "frames": 40,
+        "path": "sprites/RedDiamond.png"
+      },
+      "SilverDiamond": {
+        "symbolId": "734",
+        "frames": 40,
+        "path": "sprites/SilverDiamond.png"
+      },
+      "FireBox": {
+        "symbolId": "173",
+        "frames": 15,
+        "path": "sprites/FireBox.png"
+      },
+      "FireBoxTri": {
+        "symbolId": "180",
+        "frames": 15,
+        "path": "sprites/FireBoxTri.png"
+      },
+      "WaterBox": {
+        "symbolId": "782",
+        "frames": 10,
+        "path": "sprites/WaterBox.png"
+      },
+      "WaterBoxTri": {
+        "symbolId": "789",
+        "frames": 15,
+        "path": "sprites/WaterBoxTri.png"
+      },
+      "FinishBoy": {
+        "symbolId": "159",
+        "frames": 22,
+        "path": "sprites/FinishBoy.png"
+      },
+      "FinishGirl": {
+        "symbolId": "166",
+        "frames": 22,
+        "path": "sprites/FinishGirl.png"
+      },
+      "deadFire": {
+        "symbolId": "151",
+        "frames": 49,
+        "path": "sprites/deadFire.png"
+      },
+      "Ball": {
+        "symbolId": "82",
+        "frames": 1,
+        "path": "sprites/Ball.png"
+      },
+      "PhysCircle": {
+        "symbolId": "668",
+        "frames": 1,
+        "path": "sprites/PhysCircle.png"
+      },
+      "MovingBox": {
+        "symbolId": "646",
+        "frames": 1,
+        "path": "sprites/MovingBox.png"
+      },
+      "LeverBase": {
+        "symbolId": "442",
+        "frames": 1,
+        "path": "sprites/LeverBase.png"
+      },
+      "LeverMc": {
+        "symbolId": "444",
+        "frames": 1,
+        "path": "sprites/LeverMc.png"
+      },
+      "ButtonBox": {
+        "symbolId": "107",
+        "frames": 1,
+        "path": "sprites/ButtonBox.png"
+      },
+      "ButtonMask": {
+        "symbolId": "109",
+        "frames": 1,
+        "path": "sprites/ButtonMask.png"
+      },
+      "ButtonPlants": {
+        "symbolId": "111",
+        "frames": 1,
+        "path": "sprites/ButtonPlants.png"
+      },
+      "PulleyAnchor": {
+        "symbolId": "678",
+        "frames": 1,
+        "path": "sprites/PulleyAnchor.png"
+      },
+      "PulleyAnchor2": {
+        "symbolId": "680",
+        "frames": 1,
+        "path": "sprites/PulleyAnchor2.png"
+      },
+      "Rope": {
+        "symbolId": "730",
+        "frames": 1,
+        "path": "sprites/Rope.png"
+      },
+      "RopePulley": {
+        "symbolId": "731",
+        "frames": 1,
+        "path": "sprites/RopePulley.png"
+      },
+      "RopeTriangle": {
+        "symbolId": "733",
+        "frames": 1,
+        "path": "sprites/RopeTriangle.png"
+      },
+      "Connector": {
+        "symbolId": "116",
+        "frames": 1,
+        "path": "sprites/Connector.png"
+      },
+      "JumperBox": {
+        "symbolId": "391",
+        "frames": 1,
+        "path": "sprites/JumperBox.png"
+      },
+      "Platform1": {
+        "symbolId": "671",
+        "frames": 1,
+        "path": "sprites/Platform1.png"
+      },
+      "PlatformBox": {
+        "symbolId": "674",
+        "frames": 1,
+        "path": "sprites/PlatformBox.png"
+      },
+      "PlatformPulleyBox": {
+        "symbolId": "676",
+        "frames": 1,
+        "path": "sprites/PlatformPulleyBox.png"
+      },
+      "Roman": {
+        "symbolId": "725",
+        "frames": 1,
+        "path": "sprites/Roman.png"
+      },
+      "RomanBase": {
+        "symbolId": "727",
+        "frames": 1,
+        "path": "sprites/RomanBase.png"
+      },
+      "Wind": {
+        "symbolId": "890",
+        "frames": 1,
+        "path": "sprites/Wind.png"
+      },
+      "WindMaker": {
+        "symbolId": "896",
+        "frames": 1,
+        "path": "sprites/WindMaker.png"
+      },
+      "Watch": {
+        "symbolId": "775",
+        "frames": 1,
+        "path": "sprites/Watch.png"
+      },
+      "GameOvero": {
+        "symbolId": "285",
+        "frames": 1,
+        "path": "sprites/GameOvero.png"
+      },
+      "Hiscore": {
+        "symbolId": "332",
+        "frames": 1,
+        "path": "sprites/Hiscore.png"
+      },
+      "PauseMenu": {
+        "symbolId": "666",
+        "frames": 1,
+        "path": "sprites/PauseMenu.png"
+      },
+      "Muter": {
+        "symbolId": "652",
+        "frames": 1,
+        "path": "sprites/Muter.png"
+      },
+      "Instructions": {
+        "symbolId": "344",
+        "frames": 1,
+        "path": "sprites/Instructions.png"
+      },
+      "IntroMenu": {
+        "symbolId": "389",
+        "frames": 1,
+        "path": "sprites/IntroMenu.png"
+      },
+      "MainMenu": {
+        "symbolId": "638",
+        "frames": 1,
+        "path": "sprites/MainMenu.png"
+      },
+      "TutLayer": {
+        "symbolId": "765",
+        "frames": 7,
+        "path": "sprites/TutLayer.png"
+      },
+      "Credits": {
+        "symbolId": "139",
+        "frames": 1,
+        "path": "sprites/Credits.png"
+      },
+      "LightMask": {
+        "symbolId": "478",
+        "frames": 434,
+        "path": "sprites/LightMask.png"
+      },
+      "ag_intro_mc": {
+        "symbolId": "17",
+        "frames": 218,
+        "path": "sprites/ag_intro_mc.png"
+      },
+      "AGlogo_mc_296": {
+        "symbolId": "47",
+        "frames": 1,
+        "path": "sprites/AGlogo_mc_296.png"
+      },
+      "AG_Teaser": {
+        "symbolId": "48",
+        "frames": 1,
+        "path": "sprites/AG_Teaser.png"
+      },
+      "LoaderMC": {
+        "symbolId": "60",
+        "frames": 1,
+        "path": "sprites/LoaderMC.png"
+      },
+      "LoaderHolder": {
+        "symbolId": "79",
+        "frames": 1,
+        "path": "sprites/LoaderHolder.png"
+      },
+      "BlackBox": {
+        "symbolId": "89",
+        "frames": 15,
+        "path": "sprites/BlackBox.png"
+      },
+      "BlackBoxTri": {
+        "symbolId": "97",
+        "frames": 15,
+        "path": "sprites/BlackBoxTri.png"
+      },
+      "bug": {
+        "symbolId": "105",
+        "frames": 169,
+        "path": "sprites/bug.png"
+      },
+      "fire_jumping_side_up_38": {
+        "symbolId": "233",
+        "frames": 1,
+        "path": "sprites/fire_jumping_side_up_38.png"
+      },
+      "fire_running_40": {
+        "symbolId": "242",
+        "frames": 8,
+        "path": "sprites/fire_running_40.png"
+      },
+      "GOboard_45": {
+        "symbolId": "284",
+        "frames": 1,
+        "path": "sprites/GOboard_45.png"
+      },
+      "HSallowed_65": {
+        "symbolId": "322",
+        "frames": 1,
+        "path": "sprites/HSallowed_65.png"
+      },
+      "RESETERER_69": {
+        "symbolId": "331",
+        "frames": 1,
+        "path": "sprites/RESETERER_69.png"
+      },
+      "TITLEs_84": {
+        "symbolId": "384",
+        "frames": 1,
+        "path": "sprites/TITLEs_84.png"
+      },
+      "level": {
+        "symbolId": "398",
+        "frames": 1,
+        "path": "sprites/level.png"
+      },
+      "lever_base_light_1": {
+        "symbolId": "401",
+        "frames": 1,
+        "path": "sprites/lever_base_light_1.png"
+      },
+      "lever_base_light_2": {
+        "symbolId": "404",
+        "frames": 1,
+        "path": "sprites/lever_base_light_2.png"
+      },
+      "lever_base_light_3": {
+        "symbolId": "407",
+        "frames": 1,
+        "path": "sprites/lever_base_light_3.png"
+      },
+      "lever_base_light_4": {
+        "symbolId": "410",
+        "frames": 1,
+        "path": "sprites/lever_base_light_4.png"
+      },
+      "lever_base_light_5": {
+        "symbolId": "413",
+        "frames": 1,
+        "path": "sprites/lever_base_light_5.png"
+      },
+      "lever_base_light_6": {
+        "symbolId": "416",
+        "frames": 1,
+        "path": "sprites/lever_base_light_6.png"
+      },
+      "lever_light_1": {
+        "symbolId": "420",
+        "frames": 2,
+        "path": "sprites/lever_light_1.png"
+      },
+      "lever_light_2": {
+        "symbolId": "424",
+        "frames": 2,
+        "path": "sprites/lever_light_2.png"
+      },
+      "lever_light_3": {
+        "symbolId": "428",
+        "frames": 2,
+        "path": "sprites/lever_light_3.png"
+      },
+      "lever_light_4": {
+        "symbolId": "432",
+        "frames": 2,
+        "path": "sprites/lever_light_4.png"
+      },
+      "lever_light_5": {
+        "symbolId": "436",
+        "frames": 2,
+        "path": "sprites/lever_light_5.png"
+      },
+      "lever_light_6": {
+        "symbolId": "440",
+        "frames": 2,
+        "path": "sprites/lever_light_6.png"
+      },
+      "light_off_1": {
+        "symbolId": "446",
+        "frames": 1,
+        "path": "sprites/light_off_1.png"
+      },
+      "light_off_2": {
+        "symbolId": "448",
+        "frames": 1,
+        "path": "sprites/light_off_2.png"
+      },
+      "light_off_3": {
+        "symbolId": "450",
+        "frames": 1,
+        "path": "sprites/light_off_3.png"
+      },
+      "light_off_4": {
+        "symbolId": "452",
+        "frames": 1,
+        "path": "sprites/light_off_4.png"
+      },
+      "light_off_5": {
+        "symbolId": "454",
+        "frames": 1,
+        "path": "sprites/light_off_5.png"
+      },
+      "light_off_6": {
+        "symbolId": "456",
+        "frames": 1,
+        "path": "sprites/light_off_6.png"
+      },
+      "light_on_1": {
+        "symbolId": "459",
+        "frames": 1,
+        "path": "sprites/light_on_1.png"
+      },
+      "light_on_2": {
+        "symbolId": "462",
+        "frames": 1,
+        "path": "sprites/light_on_2.png"
+      },
+      "light_on_3": {
+        "symbolId": "465",
+        "frames": 1,
+        "path": "sprites/light_on_3.png"
+      },
+      "light_on_4": {
+        "symbolId": "468",
+        "frames": 1,
+        "path": "sprites/light_on_4.png"
+      },
+      "light_on_5": {
+        "symbolId": "471",
+        "frames": 1,
+        "path": "sprites/light_on_5.png"
+      },
+      "light_on_6": {
+        "symbolId": "474",
+        "frames": 1,
+        "path": "sprites/light_on_6.png"
+      },
+      "lightpoint_1": {
+        "symbolId": "481",
+        "frames": 1,
+        "path": "sprites/lightpoint_1.png"
+      },
+      "lightpoint_2": {
+        "symbolId": "484",
+        "frames": 1,
+        "path": "sprites/lightpoint_2.png"
+      },
+      "lightpoint_3": {
+        "symbolId": "487",
+        "frames": 1,
+        "path": "sprites/lightpoint_3.png"
+      },
+      "lightpoint_4": {
+        "symbolId": "490",
+        "frames": 1,
+        "path": "sprites/lightpoint_4.png"
+      },
+      "lightpoint_5": {
+        "symbolId": "493",
+        "frames": 1,
+        "path": "sprites/lightpoint_5.png"
+      },
+      "lightpoint_6": {
+        "symbolId": "496",
+        "frames": 1,
+        "path": "sprites/lightpoint_6.png"
+      },
+      "SurcoGold_166": {
+        "symbolId": "567",
+        "frames": 1,
+        "path": "sprites/SurcoGold_166.png"
+      },
+      "Diamond3copy_202": {
+        "symbolId": "587",
+        "frames": 4,
+        "path": "sprites/Diamond3copy_202.png"
+      },
+      "Diamond1copy5_210": {
+        "symbolId": "607",
+        "frames": 4,
+        "path": "sprites/Diamond1copy5_210.png"
+      },
+      "Diamond2_213": {
+        "symbolId": "619",
+        "frames": 4,
+        "path": "sprites/Diamond2_213.png"
+      },
+      "MaskBox": {
+        "symbolId": "640",
+        "frames": 1,
+        "path": "sprites/MaskBox.png"
+      },
+      "MaskBoxHalf": {
+        "symbolId": "642",
+        "frames": 1,
+        "path": "sprites/MaskBoxHalf.png"
+      },
+      "MaskBoxMaskTri": {
+        "symbolId": "644",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri.png"
+      },
+      "Result_246": {
+        "symbolId": "705",
+        "frames": 1,
+        "path": "sprites/Result_246.png"
+      },
+      "RDCounter_251": {
+        "symbolId": "708",
+        "frames": 1,
+        "path": "sprites/RDCounter_251.png"
+      },
+      "BDCounter_252": {
+        "symbolId": "711",
+        "frames": 1,
+        "path": "sprites/BDCounter_252.png"
+      },
+      "GDcounter_253": {
+        "symbolId": "716",
+        "frames": 1,
+        "path": "sprites/GDcounter_253.png"
+      },
+      "RBoard_243": {
+        "symbolId": "717",
+        "frames": 1,
+        "path": "sprites/RBoard_243.png"
+      },
+      "Recuento": {
+        "symbolId": "718",
+        "frames": 1,
+        "path": "sprites/Recuento.png"
+      },
+      "texture1": {
+        "symbolId": "737",
+        "frames": 1,
+        "path": "sprites/texture1.png"
+      },
+      "Trans": {
+        "symbolId": "738",
+        "frames": 1,
+        "path": "sprites/Trans.png"
+      },
+      "water_jumping_side_up_280": {
+        "symbolId": "830",
+        "frames": 1,
+        "path": "sprites/water_jumping_side_up_280.png"
+      },
+      "water_running_283": {
+        "symbolId": "839",
+        "frames": 8,
+        "path": "sprites/water_running_283.png"
+      }
+    },
+    "sounds": 27,
+    "background": "background.png"
+  },
+  "light": {
+    "temple": "Light Temple",
+    "key": "light",
+    "sprites": {
+      "FireBoy": {
+        "symbolId": "407",
+        "frames": 1,
+        "path": "sprites/FireBoy.png"
+      },
+      "WaterGirl": {
+        "symbolId": "1071",
+        "frames": 1,
+        "path": "sprites/WaterGirl.png"
+      },
+      "FireBoystairs": {
+        "symbolId": "414",
+        "frames": 25,
+        "path": "sprites/FireBoystairs.png"
+      },
+      "WaterGirlStairs": {
+        "symbolId": "73",
+        "frames": 35,
+        "path": "sprites/WaterGirlStairs.png"
+      },
+      "GroundBox1": {
+        "symbolId": "446",
+        "frames": 1,
+        "path": "sprites/GroundBox1.png"
+      },
+      "GroundBox2": {
+        "symbolId": "449",
+        "frames": 1,
+        "path": "sprites/GroundBox2.png"
+      },
+      "GroundBox3": {
+        "symbolId": "452",
+        "frames": 1,
+        "path": "sprites/GroundBox3.png"
+      },
+      "GroundBox4": {
+        "symbolId": "455",
+        "frames": 1,
+        "path": "sprites/GroundBox4.png"
+      },
+      "GroundBox5": {
+        "symbolId": "458",
+        "frames": 1,
+        "path": "sprites/GroundBox5.png"
+      },
+      "GroundBoxHalf": {
+        "symbolId": "461",
+        "frames": 1,
+        "path": "sprites/GroundBoxHalf.png"
+      },
+      "GroundTri_1": {
+        "symbolId": "464",
+        "frames": 1,
+        "path": "sprites/GroundTri_1.png"
+      },
+      "BlueDiamond": {
+        "symbolId": "270",
+        "frames": 40,
+        "path": "sprites/BlueDiamond.png"
+      },
+      "RedDiamond": {
+        "symbolId": "964",
+        "frames": 40,
+        "path": "sprites/RedDiamond.png"
+      },
+      "SilverDiamond": {
+        "symbolId": "979",
+        "frames": 40,
+        "path": "sprites/SilverDiamond.png"
+      },
+      "FireBox": {
+        "symbolId": "336",
+        "frames": 15,
+        "path": "sprites/FireBox.png"
+      },
+      "FireBoxTri": {
+        "symbolId": "344",
+        "frames": 15,
+        "path": "sprites/FireBoxTri.png"
+      },
+      "WaterBox": {
+        "symbolId": "1024",
+        "frames": 10,
+        "path": "sprites/WaterBox.png"
+      },
+      "WaterBoxTri": {
+        "symbolId": "1031",
+        "frames": 15,
+        "path": "sprites/WaterBoxTri.png"
+      },
+      "FinishBoy": {
+        "symbolId": "87",
+        "frames": 22,
+        "path": "sprites/FinishBoy.png"
+      },
+      "FinishGirl": {
+        "symbolId": "329",
+        "frames": 22,
+        "path": "sprites/FinishGirl.png"
+      },
+      "deadFire": {
+        "symbolId": "321",
+        "frames": 49,
+        "path": "sprites/deadFire.png"
+      },
+      "Ball": {
+        "symbolId": "252",
+        "frames": 1,
+        "path": "sprites/Ball.png"
+      },
+      "PhysCircle": {
+        "symbolId": "914",
+        "frames": 1,
+        "path": "sprites/PhysCircle.png"
+      },
+      "MovingBox": {
+        "symbolId": "894",
+        "frames": 1,
+        "path": "sprites/MovingBox.png"
+      },
+      "LeverBase": {
+        "symbolId": "609",
+        "frames": 1,
+        "path": "sprites/LeverBase.png"
+      },
+      "LeverMc": {
+        "symbolId": "611",
+        "frames": 1,
+        "path": "sprites/LeverMc.png"
+      },
+      "ButtonBox": {
+        "symbolId": "277",
+        "frames": 1,
+        "path": "sprites/ButtonBox.png"
+      },
+      "ButtonMask": {
+        "symbolId": "279",
+        "frames": 1,
+        "path": "sprites/ButtonMask.png"
+      },
+      "ButtonPlants": {
+        "symbolId": "281",
+        "frames": 1,
+        "path": "sprites/ButtonPlants.png"
+      },
+      "PulleyAnchor": {
+        "symbolId": "923",
+        "frames": 1,
+        "path": "sprites/PulleyAnchor.png"
+      },
+      "PulleyAnchor2": {
+        "symbolId": "925",
+        "frames": 1,
+        "path": "sprites/PulleyAnchor2.png"
+      },
+      "Rope": {
+        "symbolId": "975",
+        "frames": 1,
+        "path": "sprites/Rope.png"
+      },
+      "RopePulley": {
+        "symbolId": "976",
+        "frames": 1,
+        "path": "sprites/RopePulley.png"
+      },
+      "RopeTriangle": {
+        "symbolId": "978",
+        "frames": 1,
+        "path": "sprites/RopeTriangle.png"
+      },
+      "Connector": {
+        "symbolId": "286",
+        "frames": 1,
+        "path": "sprites/Connector.png"
+      },
+      "JumperBox": {
+        "symbolId": "557",
+        "frames": 1,
+        "path": "sprites/JumperBox.png"
+      },
+      "Platform1": {
+        "symbolId": "917",
+        "frames": 1,
+        "path": "sprites/Platform1.png"
+      },
+      "PlatformBox": {
+        "symbolId": "919",
+        "frames": 1,
+        "path": "sprites/PlatformBox.png"
+      },
+      "PlatformPulleyBox": {
+        "symbolId": "921",
+        "frames": 1,
+        "path": "sprites/PlatformPulleyBox.png"
+      },
+      "Roman": {
+        "symbolId": "970",
+        "frames": 1,
+        "path": "sprites/Roman.png"
+      },
+      "RomanBase": {
+        "symbolId": "972",
+        "frames": 1,
+        "path": "sprites/RomanBase.png"
+      },
+      "Wind": {
+        "symbolId": "1085",
+        "frames": 1,
+        "path": "sprites/Wind.png"
+      },
+      "WindMaker": {
+        "symbolId": "1091",
+        "frames": 1,
+        "path": "sprites/WindMaker.png"
+      },
+      "Watch": {
+        "symbolId": "1017",
+        "frames": 1,
+        "path": "sprites/Watch.png"
+      },
+      "GameOvero": {
+        "symbolId": "443",
+        "frames": 1,
+        "path": "sprites/GameOvero.png"
+      },
+      "Hiscore": {
+        "symbolId": "492",
+        "frames": 1,
+        "path": "sprites/Hiscore.png"
+      },
+      "PauseMenu": {
+        "symbolId": "912",
+        "frames": 1,
+        "path": "sprites/PauseMenu.png"
+      },
+      "Muter": {
+        "symbolId": "898",
+        "frames": 1,
+        "path": "sprites/Muter.png"
+      },
+      "Instructions": {
+        "symbolId": "511",
+        "frames": 1,
+        "path": "sprites/Instructions.png"
+      },
+      "IntroMenu": {
+        "symbolId": "555",
+        "frames": 1,
+        "path": "sprites/IntroMenu.png"
+      },
+      "MainMenu": {
+        "symbolId": "886",
+        "frames": 1,
+        "path": "sprites/MainMenu.png"
+      },
+      "TutLayer": {
+        "symbolId": "1009",
+        "frames": 7,
+        "path": "sprites/TutLayer.png"
+      },
+      "Credits": {
+        "symbolId": "309",
+        "frames": 1,
+        "path": "sprites/Credits.png"
+      },
+      "RotMirror": {
+        "symbolId": "146",
+        "frames": 1,
+        "path": "sprites/RotMirror.png"
+      },
+      "RotMirrorInfinite": {
+        "symbolId": "141",
+        "frames": 1,
+        "path": "sprites/RotMirrorInfinite.png"
+      },
+      "MovingMirror": {
+        "symbolId": "172",
+        "frames": 1,
+        "path": "sprites/MovingMirror.png"
+      },
+      "LightBeamer": {
+        "symbolId": "194",
+        "frames": 1,
+        "path": "sprites/LightBeamer.png"
+      },
+      "LightPusher": {
+        "symbolId": "180",
+        "frames": 1,
+        "path": "sprites/LightPusher.png"
+      },
+      "LightMask": {
+        "symbolId": "645",
+        "frames": 434,
+        "path": "sprites/LightMask.png"
+      },
+      "Bullet": {
+        "symbolId": "195",
+        "frames": 1,
+        "path": "sprites/Bullet.png"
+      },
+      "MovingBox2": {
+        "symbolId": "174",
+        "frames": 1,
+        "path": "sprites/MovingBox2.png"
+      },
+      "SliderLever": {
+        "symbolId": "104",
+        "frames": 1,
+        "path": "sprites/SliderLever.png"
+      },
+      "SliderHole": {
+        "symbolId": "106",
+        "frames": 1,
+        "path": "sprites/SliderHole.png"
+      },
+      "Qualiter": {
+        "symbolId": "93",
+        "frames": 1,
+        "path": "sprites/Qualiter.png"
+      },
+      "TutLayer2": {
+        "symbolId": "102",
+        "frames": 5,
+        "path": "sprites/TutLayer2.png"
+      },
+      "SK_Teaser": {
+        "symbolId": "134",
+        "frames": 152,
+        "path": "sprites/SK_Teaser.png"
+      },
+      "rot_mirror_light_6": {
+        "symbolId": "150",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_6.png"
+      },
+      "rot_mirror_light_5": {
+        "symbolId": "154",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_5.png"
+      },
+      "rot_mirror_light_4": {
+        "symbolId": "158",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_4.png"
+      },
+      "rot_mirror_light_3": {
+        "symbolId": "162",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_3.png"
+      },
+      "rot_mirror_light_2": {
+        "symbolId": "166",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_2.png"
+      },
+      "rot_mirror_light_1": {
+        "symbolId": "170",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_1.png"
+      },
+      "MaskBoxMaskTri3": {
+        "symbolId": "176",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri3.png"
+      },
+      "MaskBoxMaskTri2": {
+        "symbolId": "178",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri2.png"
+      },
+      "lightpoint_62": {
+        "symbolId": "183",
+        "frames": 1,
+        "path": "sprites/lightpoint_62.png"
+      },
+      "lightpoint_52": {
+        "symbolId": "186",
+        "frames": 1,
+        "path": "sprites/lightpoint_52.png"
+      },
+      "BackGround": {
+        "symbolId": "201",
+        "frames": 1,
+        "path": "sprites/BackGround.png"
+      },
+      "ag_intro_mc": {
+        "symbolId": "217",
+        "frames": 218,
+        "path": "sprites/ag_intro_mc.png"
+      },
+      "LoaderMC": {
+        "symbolId": "226",
+        "frames": 1,
+        "path": "sprites/LoaderMC.png"
+      },
+      "LoaderHolder": {
+        "symbolId": "248",
+        "frames": 1,
+        "path": "sprites/LoaderHolder.png"
+      },
+      "BlackBox": {
+        "symbolId": "259",
+        "frames": 15,
+        "path": "sprites/BlackBox.png"
+      },
+      "BlackBoxTri": {
+        "symbolId": "267",
+        "frames": 15,
+        "path": "sprites/BlackBoxTri.png"
+      },
+      "bug": {
+        "symbolId": "275",
+        "frames": 169,
+        "path": "sprites/bug.png"
+      },
+      "level": {
+        "symbolId": "564",
+        "frames": 1,
+        "path": "sprites/level.png"
+      },
+      "ll1": {
+        "symbolId": "566",
+        "frames": 1,
+        "path": "sprites/ll1.png"
+      },
+      "lever_base_light_1": {
+        "symbolId": "567",
+        "frames": 1,
+        "path": "sprites/lever_base_light_1.png"
+      },
+      "ll2": {
+        "symbolId": "569",
+        "frames": 1,
+        "path": "sprites/ll2.png"
+      },
+      "lever_base_light_2": {
+        "symbolId": "570",
+        "frames": 1,
+        "path": "sprites/lever_base_light_2.png"
+      },
+      "ll3": {
+        "symbolId": "572",
+        "frames": 1,
+        "path": "sprites/ll3.png"
+      },
+      "lever_base_light_3": {
+        "symbolId": "573",
+        "frames": 1,
+        "path": "sprites/lever_base_light_3.png"
+      },
+      "ll4": {
+        "symbolId": "575",
+        "frames": 1,
+        "path": "sprites/ll4.png"
+      },
+      "lever_base_light_4": {
+        "symbolId": "576",
+        "frames": 1,
+        "path": "sprites/lever_base_light_4.png"
+      },
+      "ll5": {
+        "symbolId": "578",
+        "frames": 1,
+        "path": "sprites/ll5.png"
+      },
+      "lever_base_light_5": {
+        "symbolId": "579",
+        "frames": 1,
+        "path": "sprites/lever_base_light_5.png"
+      },
+      "ll6": {
+        "symbolId": "581",
+        "frames": 1,
+        "path": "sprites/ll6.png"
+      },
+      "lever_base_light_6": {
+        "symbolId": "582",
+        "frames": 1,
+        "path": "sprites/lever_base_light_6.png"
+      },
+      "lever_light_1": {
+        "symbolId": "586",
+        "frames": 2,
+        "path": "sprites/lever_light_1.png"
+      },
+      "lever_light_2": {
+        "symbolId": "590",
+        "frames": 2,
+        "path": "sprites/lever_light_2.png"
+      },
+      "lever_light_3": {
+        "symbolId": "594",
+        "frames": 2,
+        "path": "sprites/lever_light_3.png"
+      },
+      "lever_light_4": {
+        "symbolId": "598",
+        "frames": 2,
+        "path": "sprites/lever_light_4.png"
+      },
+      "lever_light_5": {
+        "symbolId": "602",
+        "frames": 2,
+        "path": "sprites/lever_light_5.png"
+      },
+      "lever_light_6": {
+        "symbolId": "606",
+        "frames": 2,
+        "path": "sprites/lever_light_6.png"
+      },
+      "light_off_1": {
+        "symbolId": "613",
+        "frames": 1,
+        "path": "sprites/light_off_1.png"
+      },
+      "light_off_2": {
+        "symbolId": "615",
+        "frames": 1,
+        "path": "sprites/light_off_2.png"
+      },
+      "light_off_3": {
+        "symbolId": "617",
+        "frames": 1,
+        "path": "sprites/light_off_3.png"
+      },
+      "light_off_4": {
+        "symbolId": "619",
+        "frames": 1,
+        "path": "sprites/light_off_4.png"
+      },
+      "light_off_5": {
+        "symbolId": "621",
+        "frames": 1,
+        "path": "sprites/light_off_5.png"
+      },
+      "light_off_6": {
+        "symbolId": "623",
+        "frames": 1,
+        "path": "sprites/light_off_6.png"
+      },
+      "light_on_1": {
+        "symbolId": "626",
+        "frames": 1,
+        "path": "sprites/light_on_1.png"
+      },
+      "light_on_2": {
+        "symbolId": "629",
+        "frames": 1,
+        "path": "sprites/light_on_2.png"
+      },
+      "light_on_3": {
+        "symbolId": "632",
+        "frames": 1,
+        "path": "sprites/light_on_3.png"
+      },
+      "light_on_4": {
+        "symbolId": "635",
+        "frames": 1,
+        "path": "sprites/light_on_4.png"
+      },
+      "light_on_5": {
+        "symbolId": "638",
+        "frames": 1,
+        "path": "sprites/light_on_5.png"
+      },
+      "light_on_6": {
+        "symbolId": "641",
+        "frames": 1,
+        "path": "sprites/light_on_6.png"
+      },
+      "lightpoint_1": {
+        "symbolId": "648",
+        "frames": 1,
+        "path": "sprites/lightpoint_1.png"
+      },
+      "lightpoint_2": {
+        "symbolId": "651",
+        "frames": 1,
+        "path": "sprites/lightpoint_2.png"
+      },
+      "lightpoint_3": {
+        "symbolId": "654",
+        "frames": 1,
+        "path": "sprites/lightpoint_3.png"
+      },
+      "lightpoint_4": {
+        "symbolId": "657",
+        "frames": 1,
+        "path": "sprites/lightpoint_4.png"
+      },
+      "lightpoint_5": {
+        "symbolId": "658",
+        "frames": 1,
+        "path": "sprites/lightpoint_5.png"
+      },
+      "lightpoint_6": {
+        "symbolId": "659",
+        "frames": 1,
+        "path": "sprites/lightpoint_6.png"
+      },
+      "Diamond3copy_176": {
+        "symbolId": "694",
+        "frames": 4,
+        "path": "sprites/Diamond3copy_176.png"
+      },
+      "Diamond1copy5_184": {
+        "symbolId": "714",
+        "frames": 4,
+        "path": "sprites/Diamond1copy5_184.png"
+      },
+      "Diamond2_187": {
+        "symbolId": "726",
+        "frames": 4,
+        "path": "sprites/Diamond2_187.png"
+      },
+      "Diamond4_190": {
+        "symbolId": "733",
+        "frames": 4,
+        "path": "sprites/Diamond4_190.png"
+      },
+      "MaskBox": {
+        "symbolId": "888",
+        "frames": 1,
+        "path": "sprites/MaskBox.png"
+      },
+      "MaskBoxHalf": {
+        "symbolId": "890",
+        "frames": 1,
+        "path": "sprites/MaskBoxHalf.png"
+      },
+      "MaskBoxMaskTri": {
+        "symbolId": "892",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri.png"
+      },
+      "Recuento": {
+        "symbolId": "963",
+        "frames": 1,
+        "path": "sprites/Recuento.png"
+      },
+      "texture1": {
+        "symbolId": "983",
+        "frames": 1,
+        "path": "sprites/texture1.png"
+      },
+      "Trans": {
+        "symbolId": "984",
+        "frames": 1,
+        "path": "sprites/Trans.png"
+      }
+    },
+    "sounds": 30,
+    "background": "background.png"
+  },
+  "ice": {
+    "temple": "Ice Temple",
+    "key": "ice",
+    "sprites": {
+      "FireBoy": {
+        "symbolId": "546",
+        "frames": 1,
+        "path": "sprites/FireBoy.png"
+      },
+      "WaterGirl": {
+        "symbolId": "1158",
+        "frames": 1,
+        "path": "sprites/WaterGirl.png"
+      },
+      "FireBoystairs": {
+        "symbolId": "553",
+        "frames": 25,
+        "path": "sprites/FireBoystairs.png"
+      },
+      "WaterGirlStairs": {
+        "symbolId": "122",
+        "frames": 35,
+        "path": "sprites/WaterGirlStairs.png"
+      },
+      "GroundBox1": {
+        "symbolId": "589",
+        "frames": 1,
+        "path": "sprites/GroundBox1.png"
+      },
+      "GroundBox2": {
+        "symbolId": "592",
+        "frames": 1,
+        "path": "sprites/GroundBox2.png"
+      },
+      "GroundBox3": {
+        "symbolId": "595",
+        "frames": 1,
+        "path": "sprites/GroundBox3.png"
+      },
+      "GroundBox4": {
+        "symbolId": "598",
+        "frames": 1,
+        "path": "sprites/GroundBox4.png"
+      },
+      "GroundBox5": {
+        "symbolId": "601",
+        "frames": 1,
+        "path": "sprites/GroundBox5.png"
+      },
+      "GroundBoxHalf": {
+        "symbolId": "604",
+        "frames": 1,
+        "path": "sprites/GroundBoxHalf.png"
+      },
+      "GroundTri_1": {
+        "symbolId": "607",
+        "frames": 1,
+        "path": "sprites/GroundTri_1.png"
+      },
+      "BlueDiamond": {
+        "symbolId": "390",
+        "frames": 40,
+        "path": "sprites/BlueDiamond.png"
+      },
+      "RedDiamond": {
+        "symbolId": "1034",
+        "frames": 40,
+        "path": "sprites/RedDiamond.png"
+      },
+      "SilverDiamond": {
+        "symbolId": "1049",
+        "frames": 40,
+        "path": "sprites/SilverDiamond.png"
+      },
+      "FireBox": {
+        "symbolId": "457",
+        "frames": 15,
+        "path": "sprites/FireBox.png"
+      },
+      "FireBoxTri": {
+        "symbolId": "465",
+        "frames": 15,
+        "path": "sprites/FireBoxTri.png"
+      },
+      "WaterBox": {
+        "symbolId": "1094",
+        "frames": 10,
+        "path": "sprites/WaterBox.png"
+      },
+      "WaterBoxTri": {
+        "symbolId": "1101",
+        "frames": 15,
+        "path": "sprites/WaterBoxTri.png"
+      },
+      "FinishBoy": {
+        "symbolId": "43",
+        "frames": 22,
+        "path": "sprites/FinishBoy.png"
+      },
+      "FinishGirl": {
+        "symbolId": "450",
+        "frames": 22,
+        "path": "sprites/FinishGirl.png"
+      },
+      "deadFire": {
+        "symbolId": "442",
+        "frames": 49,
+        "path": "sprites/deadFire.png"
+      },
+      "Ball": {
+        "symbolId": "372",
+        "frames": 1,
+        "path": "sprites/Ball.png"
+      },
+      "PhysCircle": {
+        "symbolId": "986",
+        "frames": 1,
+        "path": "sprites/PhysCircle.png"
+      },
+      "MovingBox": {
+        "symbolId": "960",
+        "frames": 1,
+        "path": "sprites/MovingBox.png"
+      },
+      "LeverBase": {
+        "symbolId": "752",
+        "frames": 1,
+        "path": "sprites/LeverBase.png"
+      },
+      "LeverMc": {
+        "symbolId": "754",
+        "frames": 1,
+        "path": "sprites/LeverMc.png"
+      },
+      "ButtonBox": {
+        "symbolId": "397",
+        "frames": 1,
+        "path": "sprites/ButtonBox.png"
+      },
+      "ButtonMask": {
+        "symbolId": "399",
+        "frames": 1,
+        "path": "sprites/ButtonMask.png"
+      },
+      "ButtonPlants": {
+        "symbolId": "401",
+        "frames": 1,
+        "path": "sprites/ButtonPlants.png"
+      },
+      "PulleyAnchor": {
+        "symbolId": "993",
+        "frames": 1,
+        "path": "sprites/PulleyAnchor.png"
+      },
+      "PulleyAnchor2": {
+        "symbolId": "995",
+        "frames": 1,
+        "path": "sprites/PulleyAnchor2.png"
+      },
+      "Rope": {
+        "symbolId": "1045",
+        "frames": 1,
+        "path": "sprites/Rope.png"
+      },
+      "RopePulley": {
+        "symbolId": "1046",
+        "frames": 1,
+        "path": "sprites/RopePulley.png"
+      },
+      "RopeTriangle": {
+        "symbolId": "1048",
+        "frames": 1,
+        "path": "sprites/RopeTriangle.png"
+      },
+      "Connector": {
+        "symbolId": "406",
+        "frames": 1,
+        "path": "sprites/Connector.png"
+      },
+      "JumperBox": {
+        "symbolId": "700",
+        "frames": 1,
+        "path": "sprites/JumperBox.png"
+      },
+      "Platform1": {
+        "symbolId": "987",
+        "frames": 1,
+        "path": "sprites/Platform1.png"
+      },
+      "PlatformBox": {
+        "symbolId": "989",
+        "frames": 1,
+        "path": "sprites/PlatformBox.png"
+      },
+      "PlatformPulleyBox": {
+        "symbolId": "991",
+        "frames": 1,
+        "path": "sprites/PlatformPulleyBox.png"
+      },
+      "Roman": {
+        "symbolId": "1040",
+        "frames": 1,
+        "path": "sprites/Roman.png"
+      },
+      "RomanBase": {
+        "symbolId": "1042",
+        "frames": 1,
+        "path": "sprites/RomanBase.png"
+      },
+      "Wind": {
+        "symbolId": "1172",
+        "frames": 1,
+        "path": "sprites/Wind.png"
+      },
+      "WindMaker": {
+        "symbolId": "1178",
+        "frames": 1,
+        "path": "sprites/WindMaker.png"
+      },
+      "Watch": {
+        "symbolId": "1087",
+        "frames": 1,
+        "path": "sprites/Watch.png"
+      },
+      "GameOvero": {
+        "symbolId": "587",
+        "frames": 1,
+        "path": "sprites/GameOvero.png"
+      },
+      "Hiscore": {
+        "symbolId": "636",
+        "frames": 1,
+        "path": "sprites/Hiscore.png"
+      },
+      "PauseMenu": {
+        "symbolId": "984",
+        "frames": 1,
+        "path": "sprites/PauseMenu.png"
+      },
+      "Muter": {
+        "symbolId": "964",
+        "frames": 1,
+        "path": "sprites/Muter.png"
+      },
+      "Instructions": {
+        "symbolId": "651",
+        "frames": 1,
+        "path": "sprites/Instructions.png"
+      },
+      "IntroMenu": {
+        "symbolId": "698",
+        "frames": 1,
+        "path": "sprites/IntroMenu.png"
+      },
+      "MainMenu": {
+        "symbolId": "954",
+        "frames": 1,
+        "path": "sprites/MainMenu.png"
+      },
+      "TutLayer": {
+        "symbolId": "1079",
+        "frames": 7,
+        "path": "sprites/TutLayer.png"
+      },
+      "Credits": {
+        "symbolId": "430",
+        "frames": 1,
+        "path": "sprites/Credits.png"
+      },
+      "RotMirror": {
+        "symbolId": "242",
+        "frames": 1,
+        "path": "sprites/RotMirror.png"
+      },
+      "RotMirrorInfinite": {
+        "symbolId": "237",
+        "frames": 1,
+        "path": "sprites/RotMirrorInfinite.png"
+      },
+      "MovingMirror": {
+        "symbolId": "268",
+        "frames": 1,
+        "path": "sprites/MovingMirror.png"
+      },
+      "LightBeamer": {
+        "symbolId": "296",
+        "frames": 1,
+        "path": "sprites/LightBeamer.png"
+      },
+      "LightPusher": {
+        "symbolId": "282",
+        "frames": 1,
+        "path": "sprites/LightPusher.png"
+      },
+      "LightMask": {
+        "symbolId": "788",
+        "frames": 434,
+        "path": "sprites/LightMask.png"
+      },
+      "Bullet": {
+        "symbolId": "304",
+        "frames": 1,
+        "path": "sprites/Bullet.png"
+      },
+      "MovingBox2": {
+        "symbolId": "270",
+        "frames": 1,
+        "path": "sprites/MovingBox2.png"
+      },
+      "SliderLever": {
+        "symbolId": "200",
+        "frames": 1,
+        "path": "sprites/SliderLever.png"
+      },
+      "SliderHole": {
+        "symbolId": "202",
+        "frames": 1,
+        "path": "sprites/SliderHole.png"
+      },
+      "FreezingEffect": {
+        "symbolId": "167",
+        "frames": 1,
+        "path": "sprites/FreezingEffect.png"
+      },
+      "MeltSmoke": {
+        "symbolId": "158",
+        "frames": 1,
+        "path": "sprites/MeltSmoke.png"
+      },
+      "Platform1Silver": {
+        "symbolId": "13",
+        "frames": 1,
+        "path": "sprites/Platform1Silver.png"
+      },
+      "ll44": {
+        "symbolId": "15",
+        "frames": 1,
+        "path": "sprites/ll44.png"
+      },
+      "ll11": {
+        "symbolId": "17",
+        "frames": 1,
+        "path": "sprites/ll11.png"
+      },
+      "Stalactite3": {
+        "symbolId": "20",
+        "frames": 1,
+        "path": "sprites/Stalactite3.png"
+      },
+      "ll55": {
+        "symbolId": "22",
+        "frames": 1,
+        "path": "sprites/ll55.png"
+      },
+      "TimedBase": {
+        "symbolId": "29",
+        "frames": 1,
+        "path": "sprites/TimedBase.png"
+      },
+      "TimedButtonBox": {
+        "symbolId": "47",
+        "frames": 1,
+        "path": "sprites/TimedButtonBox.png"
+      },
+      "SnowFull": {
+        "symbolId": "49",
+        "frames": 1,
+        "path": "sprites/SnowFull.png"
+      },
+      "ll66": {
+        "symbolId": "51",
+        "frames": 1,
+        "path": "sprites/ll66.png"
+      },
+      "iceCubeTri": {
+        "symbolId": "128",
+        "frames": 1,
+        "path": "sprites/iceCubeTri.png"
+      },
+      "meltsmok_332": {
+        "symbolId": "157",
+        "frames": 100,
+        "path": "sprites/meltsmok_332.png"
+      },
+      "ll22": {
+        "symbolId": "160",
+        "frames": 1,
+        "path": "sprites/ll22.png"
+      },
+      "ll33": {
+        "symbolId": "162",
+        "frames": 1,
+        "path": "sprites/ll33.png"
+      },
+      "Qualiter": {
+        "symbolId": "173",
+        "frames": 1,
+        "path": "sprites/Qualiter.png"
+      },
+      "TutLayer3": {
+        "symbolId": "183",
+        "frames": 7,
+        "path": "sprites/TutLayer3.png"
+      },
+      "TutLayer2": {
+        "symbolId": "189",
+        "frames": 5,
+        "path": "sprites/TutLayer2.png"
+      },
+      "TimeText": {
+        "symbolId": "192",
+        "frames": 1,
+        "path": "sprites/TimeText.png"
+      },
+      "Texture2": {
+        "symbolId": "195",
+        "frames": 1,
+        "path": "sprites/Texture2.png"
+      },
+      "SnowTexture": {
+        "symbolId": "198",
+        "frames": 1,
+        "path": "sprites/SnowTexture.png"
+      },
+      "SK_Teaser": {
+        "symbolId": "230",
+        "frames": 152,
+        "path": "sprites/SK_Teaser.png"
+      },
+      "rot_mirror_light_6": {
+        "symbolId": "246",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_6.png"
+      },
+      "rot_mirror_light_5": {
+        "symbolId": "250",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_5.png"
+      },
+      "rot_mirror_light_4": {
+        "symbolId": "254",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_4.png"
+      },
+      "rot_mirror_light_3": {
+        "symbolId": "258",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_3.png"
+      },
+      "rot_mirror_light_2": {
+        "symbolId": "262",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_2.png"
+      },
+      "rot_mirror_light_1": {
+        "symbolId": "266",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_1.png"
+      },
+      "MiniClipLogo": {
+        "symbolId": "272",
+        "frames": 1,
+        "path": "sprites/MiniClipLogo.png"
+      },
+      "MaskBoxMaskTri": {
+        "symbolId": "274",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri.png"
+      },
+      "MaskBoxIce": {
+        "symbolId": "276",
+        "frames": 1,
+        "path": "sprites/MaskBoxIce.png"
+      },
+      "MaskBoxMaskTri3": {
+        "symbolId": "278",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri3.png"
+      },
+      "MaskBoxMaskTri2": {
+        "symbolId": "280",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri2.png"
+      },
+      "lightpoint_62": {
+        "symbolId": "285",
+        "frames": 1,
+        "path": "sprites/lightpoint_62.png"
+      },
+      "lightpoint_52": {
+        "symbolId": "288",
+        "frames": 1,
+        "path": "sprites/lightpoint_52.png"
+      },
+      "iceCube": {
+        "symbolId": "300",
+        "frames": 1,
+        "path": "sprites/iceCube.png"
+      },
+      "GroundBoxIce1": {
+        "symbolId": "303",
+        "frames": 1,
+        "path": "sprites/GroundBoxIce1.png"
+      },
+      "BackGround": {
+        "symbolId": "311",
+        "frames": 1,
+        "path": "sprites/BackGround.png"
+      },
+      "ag_intro_mc": {
+        "symbolId": "327",
+        "frames": 218,
+        "path": "sprites/ag_intro_mc.png"
+      },
+      "MaskBoxMaskTriIce": {
+        "symbolId": "332",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTriIce.png"
+      },
+      "LoaderMC": {
+        "symbolId": "338",
+        "frames": 1,
+        "path": "sprites/LoaderMC.png"
+      },
+      "Stalactite1": {
+        "symbolId": "343",
+        "frames": 1,
+        "path": "sprites/Stalactite1.png"
+      },
+      "Stalactite2": {
+        "symbolId": "348",
+        "frames": 1,
+        "path": "sprites/Stalactite2.png"
+      },
+      "LoaderHolder": {
+        "symbolId": "366",
+        "frames": 1,
+        "path": "sprites/LoaderHolder.png"
+      },
+      "AdvertContainer": {
+        "symbolId": "368",
+        "frames": 1,
+        "path": "sprites/AdvertContainer.png"
+      },
+      "BlackBox": {
+        "symbolId": "379",
+        "frames": 15,
+        "path": "sprites/BlackBox.png"
+      },
+      "BlackBoxTri": {
+        "symbolId": "387",
+        "frames": 15,
+        "path": "sprites/BlackBoxTri.png"
+      },
+      "bug": {
+        "symbolId": "395",
+        "frames": 169,
+        "path": "sprites/bug.png"
+      },
+      "level": {
+        "symbolId": "707",
+        "frames": 1,
+        "path": "sprites/level.png"
+      },
+      "ll1": {
+        "symbolId": "709",
+        "frames": 1,
+        "path": "sprites/ll1.png"
+      },
+      "lever_base_light_1": {
+        "symbolId": "710",
+        "frames": 1,
+        "path": "sprites/lever_base_light_1.png"
+      },
+      "ll2": {
+        "symbolId": "712",
+        "frames": 1,
+        "path": "sprites/ll2.png"
+      },
+      "lever_base_light_2": {
+        "symbolId": "713",
+        "frames": 1,
+        "path": "sprites/lever_base_light_2.png"
+      },
+      "ll3": {
+        "symbolId": "715",
+        "frames": 1,
+        "path": "sprites/ll3.png"
+      },
+      "lever_base_light_3": {
+        "symbolId": "716",
+        "frames": 1,
+        "path": "sprites/lever_base_light_3.png"
+      },
+      "ll4": {
+        "symbolId": "718",
+        "frames": 1,
+        "path": "sprites/ll4.png"
+      },
+      "lever_base_light_4": {
+        "symbolId": "719",
+        "frames": 1,
+        "path": "sprites/lever_base_light_4.png"
+      },
+      "ll5": {
+        "symbolId": "721",
+        "frames": 1,
+        "path": "sprites/ll5.png"
+      },
+      "lever_base_light_5": {
+        "symbolId": "722",
+        "frames": 1,
+        "path": "sprites/lever_base_light_5.png"
+      },
+      "ll6": {
+        "symbolId": "724",
+        "frames": 1,
+        "path": "sprites/ll6.png"
+      },
+      "lever_base_light_6": {
+        "symbolId": "725",
+        "frames": 1,
+        "path": "sprites/lever_base_light_6.png"
+      },
+      "lever_light_1": {
+        "symbolId": "729",
+        "frames": 2,
+        "path": "sprites/lever_light_1.png"
+      },
+      "lever_light_2": {
+        "symbolId": "733",
+        "frames": 2,
+        "path": "sprites/lever_light_2.png"
+      },
+      "lever_light_3": {
+        "symbolId": "737",
+        "frames": 2,
+        "path": "sprites/lever_light_3.png"
+      },
+      "lever_light_4": {
+        "symbolId": "741",
+        "frames": 2,
+        "path": "sprites/lever_light_4.png"
+      },
+      "lever_light_5": {
+        "symbolId": "745",
+        "frames": 2,
+        "path": "sprites/lever_light_5.png"
+      },
+      "lever_light_6": {
+        "symbolId": "749",
+        "frames": 2,
+        "path": "sprites/lever_light_6.png"
+      },
+      "light_off_1": {
+        "symbolId": "756",
+        "frames": 1,
+        "path": "sprites/light_off_1.png"
+      },
+      "light_off_2": {
+        "symbolId": "758",
+        "frames": 1,
+        "path": "sprites/light_off_2.png"
+      },
+      "light_off_3": {
+        "symbolId": "760",
+        "frames": 1,
+        "path": "sprites/light_off_3.png"
+      },
+      "light_off_4": {
+        "symbolId": "762",
+        "frames": 1,
+        "path": "sprites/light_off_4.png"
+      },
+      "light_off_5": {
+        "symbolId": "764",
+        "frames": 1,
+        "path": "sprites/light_off_5.png"
+      },
+      "light_off_6": {
+        "symbolId": "766",
+        "frames": 1,
+        "path": "sprites/light_off_6.png"
+      },
+      "light_on_1": {
+        "symbolId": "769",
+        "frames": 1,
+        "path": "sprites/light_on_1.png"
+      },
+      "light_on_2": {
+        "symbolId": "772",
+        "frames": 1,
+        "path": "sprites/light_on_2.png"
+      },
+      "light_on_3": {
+        "symbolId": "775",
+        "frames": 1,
+        "path": "sprites/light_on_3.png"
+      },
+      "light_on_4": {
+        "symbolId": "778",
+        "frames": 1,
+        "path": "sprites/light_on_4.png"
+      },
+      "light_on_5": {
+        "symbolId": "781",
+        "frames": 1,
+        "path": "sprites/light_on_5.png"
+      },
+      "light_on_6": {
+        "symbolId": "784",
+        "frames": 1,
+        "path": "sprites/light_on_6.png"
+      },
+      "lightpoint_1": {
+        "symbolId": "791",
+        "frames": 1,
+        "path": "sprites/lightpoint_1.png"
+      },
+      "lightpoint_2": {
+        "symbolId": "794",
+        "frames": 1,
+        "path": "sprites/lightpoint_2.png"
+      },
+      "lightpoint_3": {
+        "symbolId": "797",
+        "frames": 1,
+        "path": "sprites/lightpoint_3.png"
+      },
+      "lightpoint_4": {
+        "symbolId": "800",
+        "frames": 1,
+        "path": "sprites/lightpoint_4.png"
+      },
+      "lightpoint_5": {
+        "symbolId": "801",
+        "frames": 1,
+        "path": "sprites/lightpoint_5.png"
+      },
+      "lightpoint_6": {
+        "symbolId": "802",
+        "frames": 1,
+        "path": "sprites/lightpoint_6.png"
+      },
+      "Diamond3copy_187": {
+        "symbolId": "864",
+        "frames": 4,
+        "path": "sprites/Diamond3copy_187.png"
+      },
+      "Diamond1copy5_195": {
+        "symbolId": "884",
+        "frames": 4,
+        "path": "sprites/Diamond1copy5_195.png"
+      },
+      "Diamond2_198": {
+        "symbolId": "896",
+        "frames": 4,
+        "path": "sprites/Diamond2_198.png"
+      },
+      "Diamond4_201": {
+        "symbolId": "903",
+        "frames": 4,
+        "path": "sprites/Diamond4_201.png"
+      },
+      "MaskBox": {
+        "symbolId": "956",
+        "frames": 1,
+        "path": "sprites/MaskBox.png"
+      },
+      "MaskBoxHalf": {
+        "symbolId": "958",
+        "frames": 1,
+        "path": "sprites/MaskBoxHalf.png"
+      },
+      "Recuento": {
+        "symbolId": "1033",
+        "frames": 1,
+        "path": "sprites/Recuento.png"
+      },
+      "texture1": {
+        "symbolId": "1053",
+        "frames": 1,
+        "path": "sprites/texture1.png"
+      },
+      "Trans": {
+        "symbolId": "1054",
+        "frames": 1,
+        "path": "sprites/Trans.png"
+      }
+    },
+    "sounds": 38,
+    "background": "background.png"
+  },
+  "crystal": {
+    "temple": "Crystal Temple",
+    "key": "crystal",
+    "sprites": {
+      "FireBoy": {
+        "symbolId": "1196",
+        "frames": 1,
+        "path": "sprites/FireBoy.png"
+      },
+      "WaterGirl": {
+        "symbolId": "454",
+        "frames": 1,
+        "path": "sprites/WaterGirl.png"
+      },
+      "FireBoystairs": {
+        "symbolId": "1152",
+        "frames": 25,
+        "path": "sprites/FireBoystairs.png"
+      },
+      "WaterGirlStairs": {
+        "symbolId": "395",
+        "frames": 35,
+        "path": "sprites/WaterGirlStairs.png"
+      },
+      "GroundBox1": {
+        "symbolId": "1110",
+        "frames": 1,
+        "path": "sprites/GroundBox1.png"
+      },
+      "GroundBox2": {
+        "symbolId": "1108",
+        "frames": 1,
+        "path": "sprites/GroundBox2.png"
+      },
+      "GroundBox3": {
+        "symbolId": "1105",
+        "frames": 1,
+        "path": "sprites/GroundBox3.png"
+      },
+      "GroundBox4": {
+        "symbolId": "1102",
+        "frames": 1,
+        "path": "sprites/GroundBox4.png"
+      },
+      "GroundBox5": {
+        "symbolId": "1099",
+        "frames": 1,
+        "path": "sprites/GroundBox5.png"
+      },
+      "GroundBoxHalf": {
+        "symbolId": "1096",
+        "frames": 1,
+        "path": "sprites/GroundBoxHalf.png"
+      },
+      "GroundTri_1": {
+        "symbolId": "1090",
+        "frames": 1,
+        "path": "sprites/GroundTri_1.png"
+      },
+      "BlueDiamond": {
+        "symbolId": "1262",
+        "frames": 40,
+        "path": "sprites/BlueDiamond.png"
+      },
+      "RedDiamond": {
+        "symbolId": "1261",
+        "frames": 40,
+        "path": "sprites/RedDiamond.png"
+      },
+      "SilverDiamond": {
+        "symbolId": "1260",
+        "frames": 40,
+        "path": "sprites/SilverDiamond.png"
+      },
+      "FireBox": {
+        "symbolId": "1211",
+        "frames": 15,
+        "path": "sprites/FireBox.png"
+      },
+      "FireBoxTri": {
+        "symbolId": "1204",
+        "frames": 15,
+        "path": "sprites/FireBoxTri.png"
+      },
+      "WaterBox": {
+        "symbolId": "468",
+        "frames": 10,
+        "path": "sprites/WaterBox.png"
+      },
+      "WaterBoxTri": {
+        "symbolId": "461",
+        "frames": 15,
+        "path": "sprites/WaterBoxTri.png"
+      },
+      "FinishBoy": {
+        "symbolId": "1227",
+        "frames": 22,
+        "path": "sprites/FinishBoy.png"
+      },
+      "FinishGirl": {
+        "symbolId": "1219",
+        "frames": 22,
+        "path": "sprites/FinishGirl.png"
+      },
+      "deadFire": {
+        "symbolId": "1293",
+        "frames": 49,
+        "path": "sprites/deadFire.png"
+      },
+      "Ball": {
+        "symbolId": "1367",
+        "frames": 1,
+        "path": "sprites/Ball.png"
+      },
+      "PhysCircle": {
+        "symbolId": "654",
+        "frames": 1,
+        "path": "sprites/PhysCircle.png"
+      },
+      "MovingBox": {
+        "symbolId": "727",
+        "frames": 1,
+        "path": "sprites/MovingBox.png"
+      },
+      "LeverBase": {
+        "symbolId": "857",
+        "frames": 1,
+        "path": "sprites/LeverBase.png"
+      },
+      "LeverMc": {
+        "symbolId": "854",
+        "frames": 1,
+        "path": "sprites/LeverMc.png"
+      },
+      "ButtonBox": {
+        "symbolId": "1312",
+        "frames": 1,
+        "path": "sprites/ButtonBox.png"
+      },
+      "ButtonMask": {
+        "symbolId": "1310",
+        "frames": 1,
+        "path": "sprites/ButtonMask.png"
+      },
+      "ButtonPlants": {
+        "symbolId": "1314",
+        "frames": 1,
+        "path": "sprites/ButtonPlants.png"
+      },
+      "PulleyAnchor": {
+        "symbolId": "644",
+        "frames": 1,
+        "path": "sprites/PulleyAnchor.png"
+      },
+      "PulleyAnchor2": {
+        "symbolId": "642",
+        "frames": 1,
+        "path": "sprites/PulleyAnchor2.png"
+      },
+      "Rope": {
+        "symbolId": "570",
+        "frames": 1,
+        "path": "sprites/Rope.png"
+      },
+      "RopePulley": {
+        "symbolId": "567",
+        "frames": 1,
+        "path": "sprites/RopePulley.png"
+      },
+      "RopeTriangle": {
+        "symbolId": "562",
+        "frames": 1,
+        "path": "sprites/RopeTriangle.png"
+      },
+      "Connector": {
+        "symbolId": "1308",
+        "frames": 1,
+        "path": "sprites/Connector.png"
+      },
+      "JumperBox": {
+        "symbolId": "866",
+        "frames": 1,
+        "path": "sprites/JumperBox.png"
+      },
+      "Platform1": {
+        "symbolId": "539",
+        "frames": 1,
+        "path": "sprites/Platform1.png"
+      },
+      "PlatformBox": {
+        "symbolId": "652",
+        "frames": 1,
+        "path": "sprites/PlatformBox.png"
+      },
+      "PlatformPulleyBox": {
+        "symbolId": "650",
+        "frames": 1,
+        "path": "sprites/PlatformPulleyBox.png"
+      },
+      "Roman": {
+        "symbolId": "578",
+        "frames": 1,
+        "path": "sprites/Roman.png"
+      },
+      "RomanBase": {
+        "symbolId": "572",
+        "frames": 1,
+        "path": "sprites/RomanBase.png"
+      },
+      "Wind": {
+        "symbolId": "336",
+        "frames": 1,
+        "path": "sprites/Wind.png"
+      },
+      "WindMaker": {
+        "symbolId": "322",
+        "frames": 1,
+        "path": "sprites/WindMaker.png"
+      },
+      "Watch": {
+        "symbolId": "474",
+        "frames": 1,
+        "path": "sprites/Watch.png"
+      },
+      "GameOvero": {
+        "symbolId": "1118",
+        "frames": 1,
+        "path": "sprites/GameOvero.png"
+      },
+      "Hiscore": {
+        "symbolId": "1081",
+        "frames": 1,
+        "path": "sprites/Hiscore.png"
+      },
+      "PauseMenu": {
+        "symbolId": "677",
+        "frames": 1,
+        "path": "sprites/PauseMenu.png"
+      },
+      "Muter": {
+        "symbolId": "721",
+        "frames": 1,
+        "path": "sprites/Muter.png"
+      },
+      "Instructions": {
+        "symbolId": "1052",
+        "frames": 1,
+        "path": "sprites/Instructions.png"
+      },
+      "IntroMenu": {
+        "symbolId": "1026",
+        "frames": 1,
+        "path": "sprites/IntroMenu.png"
+      },
+      "MainMenu": {
+        "symbolId": "827",
+        "frames": 1,
+        "path": "sprites/MainMenu.png"
+      },
+      "TutLayer": {
+        "symbolId": "514",
+        "frames": 7,
+        "path": "sprites/TutLayer.png"
+      },
+      "Credits": {
+        "symbolId": "1307",
+        "frames": 1,
+        "path": "sprites/Credits.png"
+      },
+      "RotMirror": {
+        "symbolId": "556",
+        "frames": 1,
+        "path": "sprites/RotMirror.png"
+      },
+      "RotMirrorInfinite": {
+        "symbolId": "551",
+        "frames": 1,
+        "path": "sprites/RotMirrorInfinite.png"
+      },
+      "MovingMirror": {
+        "symbolId": "723",
+        "frames": 1,
+        "path": "sprites/MovingMirror.png"
+      },
+      "LightBeamer": {
+        "symbolId": "852",
+        "frames": 1,
+        "path": "sprites/LightBeamer.png"
+      },
+      "LightPusher": {
+        "symbolId": "835",
+        "frames": 1,
+        "path": "sprites/LightPusher.png"
+      },
+      "LightMask": {
+        "symbolId": "843",
+        "frames": 434,
+        "path": "sprites/LightMask.png"
+      },
+      "Bullet": {
+        "symbolId": "1315",
+        "frames": 1,
+        "path": "sprites/Bullet.png"
+      },
+      "MovingBox2": {
+        "symbolId": "725",
+        "frames": 1,
+        "path": "sprites/MovingBox2.png"
+      },
+      "SliderLever": {
+        "symbolId": "541",
+        "frames": 1,
+        "path": "sprites/SliderLever.png"
+      },
+      "SliderHole": {
+        "symbolId": "543",
+        "frames": 1,
+        "path": "sprites/SliderHole.png"
+      },
+      "FreezingEffect": {
+        "symbolId": "1123",
+        "frames": 1,
+        "path": "sprites/FreezingEffect.png"
+      },
+      "MeltSmoke": {
+        "symbolId": "762",
+        "frames": 1,
+        "path": "sprites/MeltSmoke.png"
+      },
+      "Portal": {
+        "symbolId": "970",
+        "frames": 1,
+        "path": "sprites/Portal.png"
+      },
+      "PortalSide": {
+        "symbolId": "873",
+        "frames": 53,
+        "path": "sprites/PortalSide.png"
+      },
+      "PoartalBase": {
+        "symbolId": "888",
+        "frames": 1,
+        "path": "sprites/PoartalBase.png"
+      },
+      "NodeTree": {
+        "symbolId": "782",
+        "frames": 1,
+        "path": "sprites/NodeTree.png"
+      },
+      "PortalMask": {
+        "symbolId": "646",
+        "frames": 1,
+        "path": "sprites/PortalMask.png"
+      },
+      "Stalactite1": {
+        "symbolId": "8",
+        "frames": 1,
+        "path": "sprites/Stalactite1.png"
+      },
+      "LoaderHolder": {
+        "symbolId": "28",
+        "frames": 1,
+        "path": "sprites/LoaderHolder.png"
+      },
+      "A10Teaser": {
+        "symbolId": "254",
+        "frames": 150,
+        "path": "sprites/A10Teaser.png"
+      },
+      "ATenTeaser": {
+        "symbolId": "255",
+        "frames": 1,
+        "path": "sprites/ATenTeaser.png"
+      },
+      "ll33": {
+        "symbolId": "296",
+        "frames": 1,
+        "path": "sprites/ll33.png"
+      },
+      "ll5": {
+        "symbolId": "298",
+        "frames": 1,
+        "path": "sprites/ll5.png"
+      },
+      "light_on_3": {
+        "symbolId": "302",
+        "frames": 1,
+        "path": "sprites/light_on_3.png"
+      },
+      "ll6": {
+        "symbolId": "304",
+        "frames": 1,
+        "path": "sprites/ll6.png"
+      },
+      "lightpoint_3": {
+        "symbolId": "307",
+        "frames": 1,
+        "path": "sprites/lightpoint_3.png"
+      },
+      "lever_light_3": {
+        "symbolId": "311",
+        "frames": 2,
+        "path": "sprites/lever_light_3.png"
+      },
+      "light_off_3": {
+        "symbolId": "313",
+        "frames": 1,
+        "path": "sprites/light_off_3.png"
+      },
+      "ll3": {
+        "symbolId": "315",
+        "frames": 1,
+        "path": "sprites/ll3.png"
+      },
+      "lever_base_light_3": {
+        "symbolId": "316",
+        "frames": 1,
+        "path": "sprites/lever_base_light_3.png"
+      },
+      "WalkerBtn": {
+        "symbolId": "477",
+        "frames": 1,
+        "path": "sprites/WalkerBtn.png"
+      },
+      "TutLayer4": {
+        "symbolId": "485",
+        "frames": 5,
+        "path": "sprites/TutLayer4.png"
+      },
+      "TutLayer3": {
+        "symbolId": "492",
+        "frames": 7,
+        "path": "sprites/TutLayer3.png"
+      },
+      "TutLayer2": {
+        "symbolId": "498",
+        "frames": 5,
+        "path": "sprites/TutLayer2.png"
+      },
+      "Trans": {
+        "symbolId": "515",
+        "frames": 1,
+        "path": "sprites/Trans.png"
+      },
+      "TimeText": {
+        "symbolId": "518",
+        "frames": 1,
+        "path": "sprites/TimeText.png"
+      },
+      "TimedButtonBox": {
+        "symbolId": "520",
+        "frames": 1,
+        "path": "sprites/TimedButtonBox.png"
+      },
+      "TimedBase": {
+        "symbolId": "523",
+        "frames": 1,
+        "path": "sprites/TimedBase.png"
+      },
+      "Texture2": {
+        "symbolId": "526",
+        "frames": 1,
+        "path": "sprites/Texture2.png"
+      },
+      "Stalactite3": {
+        "symbolId": "528",
+        "frames": 1,
+        "path": "sprites/Stalactite3.png"
+      },
+      "Stalactite2": {
+        "symbolId": "530",
+        "frames": 1,
+        "path": "sprites/Stalactite2.png"
+      },
+      "SnowTexture": {
+        "symbolId": "533",
+        "frames": 1,
+        "path": "sprites/SnowTexture.png"
+      },
+      "SnowFull": {
+        "symbolId": "535",
+        "frames": 1,
+        "path": "sprites/SnowFull.png"
+      },
+      "Platform1Silver": {
+        "symbolId": "538",
+        "frames": 1,
+        "path": "sprites/Platform1Silver.png"
+      },
+      "SK_Teaser": {
+        "symbolId": "544",
+        "frames": 152,
+        "path": "sprites/SK_Teaser.png"
+      },
+      "rot_mirror_light_3": {
+        "symbolId": "560",
+        "frames": 2,
+        "path": "sprites/rot_mirror_light_3.png"
+      },
+      "Result_239": {
+        "symbolId": "608",
+        "frames": 1,
+        "path": "sprites/Result_239.png"
+      },
+      "ContinueBtn_244": {
+        "symbolId": "611",
+        "frames": 1,
+        "path": "sprites/ContinueBtn_244.png"
+      },
+      "SponsorLogoHolder": {
+        "symbolId": "616",
+        "frames": 1,
+        "path": "sprites/SponsorLogoHolder.png"
+      },
+      "GDcounter_247": {
+        "symbolId": "633",
+        "frames": 2,
+        "path": "sprites/GDcounter_247.png"
+      },
+      "RBoard_237": {
+        "symbolId": "634",
+        "frames": 1,
+        "path": "sprites/RBoard_237.png"
+      },
+      "Recuento": {
+        "symbolId": "635",
+        "frames": 1,
+        "path": "sprites/Recuento.png"
+      },
+      "Qualiter": {
+        "symbolId": "640",
+        "frames": 1,
+        "path": "sprites/Qualiter.png"
+      },
+      "PlatformBox2": {
+        "symbolId": "649",
+        "frames": 1,
+        "path": "sprites/PlatformBox2.png"
+      },
+      "RetrierBtn_109": {
+        "symbolId": "660",
+        "frames": 1,
+        "path": "sprites/RetrierBtn_109.png"
+      },
+      "MorerBtncopy_115": {
+        "symbolId": "665",
+        "frames": 1,
+        "path": "sprites/MorerBtncopy_115.png"
+      },
+      "MainManuerBtn_110": {
+        "symbolId": "668",
+        "frames": 1,
+        "path": "sprites/MainManuerBtn_110.png"
+      },
+      "ResumerBtn_225": {
+        "symbolId": "671",
+        "frames": 1,
+        "path": "sprites/ResumerBtn_225.png"
+      },
+      "NumsSprite": {
+        "symbolId": "717",
+        "frames": 1,
+        "path": "sprites/NumsSprite.png"
+      },
+      "MorerBtn": {
+        "symbolId": "730",
+        "frames": 1,
+        "path": "sprites/MorerBtn.png"
+      },
+      "MiniClipLogo": {
+        "symbolId": "732",
+        "frames": 1,
+        "path": "sprites/MiniClipLogo.png"
+      },
+      "meltsmok_213": {
+        "symbolId": "761",
+        "frames": 100,
+        "path": "sprites/meltsmok_213.png"
+      },
+      "MaskBoxMaskTri": {
+        "symbolId": "764",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri.png"
+      },
+      "MaskBoxIce": {
+        "symbolId": "766",
+        "frames": 1,
+        "path": "sprites/MaskBoxIce.png"
+      },
+      "MaskBoxMaskTri3": {
+        "symbolId": "768",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri3.png"
+      },
+      "MaskBoxMaskTri2": {
+        "symbolId": "770",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTri2.png"
+      },
+      "MaskBoxMaskTriIce": {
+        "symbolId": "772",
+        "frames": 1,
+        "path": "sprites/MaskBoxMaskTriIce.png"
+      },
+      "MaskBoxHalf": {
+        "symbolId": "774",
+        "frames": 1,
+        "path": "sprites/MaskBoxHalf.png"
+      },
+      "MaskBox": {
+        "symbolId": "776",
+        "frames": 1,
+        "path": "sprites/MaskBox.png"
+      },
+      "crystal_tut_text_190": {
+        "symbolId": "801",
+        "frames": 1,
+        "path": "sprites/crystal_tut_text_190.png"
+      },
+      "MainMenuerBtn2_191": {
+        "symbolId": "804",
+        "frames": 1,
+        "path": "sprites/MainMenuerBtn2_191.png"
+      },
+      "ShowNumsBtn_192": {
+        "symbolId": "807",
+        "frames": 1,
+        "path": "sprites/ShowNumsBtn_192.png"
+      },
+      "ShowTimeserBtn_193": {
+        "symbolId": "810",
+        "frames": 1,
+        "path": "sprites/ShowTimeserBtn_193.png"
+      },
+      "qualityMC_194": {
+        "symbolId": "812",
+        "frames": 1,
+        "path": "sprites/qualityMC_194.png"
+      },
+      "MusicMC_195": {
+        "symbolId": "814",
+        "frames": 1,
+        "path": "sprites/MusicMC_195.png"
+      },
+      "BeginnerMC_196": {
+        "symbolId": "816",
+        "frames": 1,
+        "path": "sprites/BeginnerMC_196.png"
+      },
+      "AwardsAdBtn_203": {
+        "symbolId": "826",
+        "frames": 1,
+        "path": "sprites/AwardsAdBtn_203.png"
+      },
+      "lightpoint_62": {
+        "symbolId": "830",
+        "frames": 1,
+        "path": "sprites/lightpoint_62.png"
+      },
+      "lightpoint_52": {
+        "symbolId": "833",
+        "frames": 1,
+        "path": "sprites/lightpoint_52.png"
+      },
+      "level": {
+        "symbolId": "858",
+        "frames": 1,
+        "path": "sprites/level.png"
+      },
+      "PlayButton_147": {
+        "symbolId": "1001",
+        "frames": 1,
+        "path": "sprites/PlayButton_147.png"
+      },
+      "MorerButton_148": {
+        "symbolId": "1004",
+        "frames": 1,
+        "path": "sprites/MorerButton_148.png"
+      },
+      "WalkerBtn_149": {
+        "symbolId": "1007",
+        "frames": 1,
+        "path": "sprites/WalkerBtn_149.png"
+      },
+      "IcerBtn_150": {
+        "symbolId": "1010",
+        "frames": 1,
+        "path": "sprites/IcerBtn_150.png"
+      },
+      "LighterBtn_151": {
+        "symbolId": "1013",
+        "frames": 1,
+        "path": "sprites/LighterBtn_151.png"
+      },
+      "ForesterBtn_152": {
+        "symbolId": "1016",
+        "frames": 1,
+        "path": "sprites/ForesterBtn_152.png"
+      },
+      "CrediterBtn_153": {
+        "symbolId": "1019",
+        "frames": 1,
+        "path": "sprites/CrediterBtn_153.png"
+      },
+      "addToSiteBtn_154": {
+        "symbolId": "1022",
+        "frames": 1,
+        "path": "sprites/addToSiteBtn_154.png"
+      },
+      "rolltextHolder_156": {
+        "symbolId": "1024",
+        "frames": 1,
+        "path": "sprites/rolltextHolder_156.png"
+      },
+      "RollingText_155": {
+        "symbolId": "1025",
+        "frames": 500,
+        "path": "sprites/RollingText_155.png"
+      },
+      "iceCubeTri": {
+        "symbolId": "1083",
+        "frames": 1,
+        "path": "sprites/iceCubeTri.png"
+      },
+      "iceCube": {
+        "symbolId": "1087",
+        "frames": 1,
+        "path": "sprites/iceCube.png"
+      },
+      "GroundBoxIce1": {
+        "symbolId": "1093",
+        "frames": 1,
+        "path": "sprites/GroundBoxIce1.png"
+      },
+      "WalkerButtoncopy_111": {
+        "symbolId": "1116",
+        "frames": 1,
+        "path": "sprites/WalkerButtoncopy_111.png"
+      },
+      "DiamondSpeedFlat": {
+        "symbolId": "1230",
+        "frames": 2,
+        "path": "sprites/DiamondSpeedFlat.png"
+      },
+      "DiamondSpeed": {
+        "symbolId": "1244",
+        "frames": 4,
+        "path": "sprites/DiamondSpeed.png"
+      },
+      "DiamondPuzzleFlat": {
+        "symbolId": "1247",
+        "frames": 2,
+        "path": "sprites/DiamondPuzzleFlat.png"
+      },
+      "DiamondPuzzle": {
+        "symbolId": "1259",
+        "frames": 4,
+        "path": "sprites/DiamondPuzzle.png"
+      },
+      "DiamondAdventureFlat": {
+        "symbolId": "1265",
+        "frames": 2,
+        "path": "sprites/DiamondAdventureFlat.png"
+      },
+      "DiamondAdventure": {
+        "symbolId": "1277",
+        "frames": 4,
+        "path": "sprites/DiamondAdventure.png"
+      },
+      "DemoTapper": {
+        "symbolId": "1281",
+        "frames": 1,
+        "path": "sprites/DemoTapper.png"
+      },
+      "bug": {
+        "symbolId": "1316",
+        "frames": 169,
+        "path": "sprites/bug.png"
+      },
+      "BackGround": {
+        "symbolId": "1325",
+        "frames": 1,
+        "path": "sprites/BackGround.png"
+      },
+      "BlackBoxTri": {
+        "symbolId": "1333",
+        "frames": 15,
+        "path": "sprites/BlackBoxTri.png"
+      },
+      "BlackBox": {
+        "symbolId": "1340",
+        "frames": 15,
+        "path": "sprites/BlackBox.png"
+      },
+      "BkgCristal6": {
+        "symbolId": "1345",
+        "frames": 1,
+        "path": "sprites/BkgCristal6.png"
+      },
+      "BkgCristal5": {
+        "symbolId": "1350",
+        "frames": 1,
+        "path": "sprites/BkgCristal5.png"
+      },
+      "BkgCristal4": {
+        "symbolId": "1353",
+        "frames": 1,
+        "path": "sprites/BkgCristal4.png"
+      },
+      "BkgCristal3": {
+        "symbolId": "1358",
+        "frames": 1,
+        "path": "sprites/BkgCristal3.png"
+      },
+      "BkgCristal2": {
+        "symbolId": "1361",
+        "frames": 1,
+        "path": "sprites/BkgCristal2.png"
+      },
+      "BkgCristal1": {
+        "symbolId": "1365",
+        "frames": 1,
+        "path": "sprites/BkgCristal1.png"
+      },
+      "texture1": {
+        "symbolId": "1370",
+        "frames": 1,
+        "path": "sprites/texture1.png"
+      }
+    },
+    "sounds": 46,
+    "background": "background.png"
+  }
+}
