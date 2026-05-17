@@ -8,17 +8,23 @@ export class MultiplayerClient {
     this.user = JSON.parse(localStorage.getItem("fwg_user") || "null");
     this.roomId = null;
     this.isHost = false;
+    
+    // Game event listeners (callbacks)
     this.peer = null;
     this.onPeerMove = null;
     this.onPeerAction = null;
     this.onPeerKey = null;
     this.onRoomUpdate = null;
     this.onStageComplete = null;
+    this.onRemoteStream = null;
+    this.onStreamDisconnected = null;
     
-    // WebRTC Durum Kontrol Flagleri
+    // WebRTC guards & state control flags
     this._pc = null;
     this._handlingOffer = false;
     this._answering = false;
+    this._isStreamingInit = false; // Double-trigger protection
+    this._webRTCBound = false;     // Prevent duplicate socket listeners
   }
 
   get isConnected() {
@@ -29,7 +35,7 @@ export class MultiplayerClient {
     return !!this.token && !!this.user;
   }
 
-  // --- Auth ---
+  // --- Auth & API calls ---
   async requestMagicLink(email) {
     const res = await fetch(`${API_BASE}/api/auth/magic`, {
       method: "POST",
@@ -100,10 +106,7 @@ export class MultiplayerClient {
     }
     this.roomId = null;
     this.isHost = false;
-    if (this._pc) {
-      this._pc.close();
-      this._pc = null;
-    }
+    this.hangUp();
   }
 
   _bindEvents() {
@@ -128,7 +131,7 @@ export class MultiplayerClient {
     });
   }
 
-  // --- Rooms ---
+  // --- Rooms & Gameplay ---
   createRoom(stage = 1) {
     return new Promise((resolve) => {
       this.isHost = true;
@@ -159,7 +162,6 @@ export class MultiplayerClient {
     }
   }
 
-  // --- Game events ---
   sendKeyState(key, pressed) {
     if (!this.roomId) return;
     this.socket.emit("player:key", { roomId: this.roomId, key, pressed });
@@ -227,45 +229,63 @@ export class MultiplayerClient {
       console.warn("[HOST] startStreaming: not host or no room");
       return;
     }
+
+    // 🛡️ Double-trigger protection
+    if (this._isStreamingInit) {
+      console.warn("[HOST] Yayın zaten başlatılıyor, mükerrer istek reddedildi.");
+      return;
+    }
+    this._isStreamingInit = true;
+
     console.log("[HOST] Fetching ICE servers...");
     const iceServers = await this._getIceServers();
     console.log("[HOST] ICE servers:", iceServers.length);
     
     this._pc = new RTCPeerConnection({ iceServers });
 
-    // Wait 2s for Ruffle WebGL canvas to render its first frame
-    console.log("[HOST] Waiting 2s for Ruffle canvas to initialize...");
-    await new Promise(r => setTimeout(r, 2000));
-
-    const ruffleCanvas = document.querySelector("#game-canvas canvas");
-    if (!ruffleCanvas) {
-      console.error("[HOST] No Ruffle canvas found");
+    const sourceCanvas = document.querySelector("#game-canvas canvas");
+    if (!sourceCanvas) {
+      console.error("[HOST] No Ruffle canvas found for captureStream");
+      this._isStreamingInit = false; // Release the lock on error
       return;
     }
-    console.log("[HOST] Ruffle canvas:", ruffleCanvas.width, "x", ruffleCanvas.height);
 
-    // Create a proxy 2D canvas — draw WebGL canvas onto it each frame
-    // WebGL canvases don't stream properly via captureStream() without
-    // preserveDrawingBuffer. A 2D canvas fixes this.
-    const proxy = document.createElement("canvas");
-    proxy.width = ruffleCanvas.width || 800;
-    proxy.height = ruffleCanvas.height || 640;
-    const proxyCtx = proxy.getContext("2d");
+    console.log("[HOST] Ruffle canvas found. Building Proxy Canvas pipeline...");
 
-    this._drawActive = true;
-    const drawLoop = () => {
-      if (!this._drawActive || !ruffleCanvas.isConnected) return;
-      try { proxyCtx.drawImage(ruffleCanvas, 0, 0); } catch(e) {}
-      requestAnimationFrame(drawLoop);
+    // 1. Create a proxy 2D canvas to avoid WebGL lockups
+    const proxyCanvas = document.createElement("canvas");
+    proxyCanvas.width = sourceCanvas.width;
+    proxyCanvas.height = sourceCanvas.height;
+    const ctx = proxyCanvas.getContext("2d", { alpha: false }); // Alpha disabled for performance
+
+    // 2. Synchronous render loop that copies each frame
+    let isStreaming = true;
+    const renderLoop = () => {
+      if (!isStreaming) return;
+      
+      // Sync proxy if the resolution changes
+      if (sourceCanvas.width !== proxyCanvas.width || sourceCanvas.height !== proxyCanvas.height) {
+        proxyCanvas.width = sourceCanvas.width;
+        proxyCanvas.height = sourceCanvas.height;
+      }
+      
+      ctx.drawImage(sourceCanvas, 0, 0);
+      requestAnimationFrame(renderLoop);
     };
-    const stream = proxy.captureStream(30);
-    requestAnimationFrame(drawLoop);
+    renderLoop();
 
+    // 3. Capture a clean stream from the proxy canvas
+    const stream = proxyCanvas.captureStream(30);
     const videoTrack = stream.getVideoTracks()[0];
-    console.log("[HOST] Proxy canvas stream — track readyState:", videoTrack?.readyState);
-    if (videoTrack) this._pc.addTrack(videoTrack, stream);
+    
+    if (videoTrack) {
+      console.log("[HOST] Proxy canvas stream — track readyState:", videoTrack.readyState);
+      this._pc.addTrack(videoTrack, stream);
+    }
+    
     videoTrack?.addEventListener("ended", () => {
       console.warn("[HOST] Video track ended");
+      isStreaming = false; // Break the loop
       this.hangUp();
     });
 
@@ -293,15 +313,21 @@ export class MultiplayerClient {
     };
 
     console.log("[HOST] Creating offer...");
-    const offer = await this._pc.createOffer();
-    await this._pc.setLocalDescription(offer);
-    console.log("[HOST] Offer created, sending via socket");
-    this.socket.emit("call:offer", { roomId: this.roomId, sdp: offer });
+    try {
+      const offer = await this._pc.createOffer();
+      await this._pc.setLocalDescription(offer);
+      console.log("[HOST] Offer created, sending via socket");
+      this.socket.emit("call:offer", { roomId: this.roomId, sdp: offer });
+    } catch (e) {
+      console.error("[HOST] Error creating offer:", e);
+      this._isStreamingInit = false;
+    }
   }
 
   async handleOffer(sdp) {
     if (this.isHost) return;
     
+    // 🛡️ Duplicate offer protection
     if (this._handlingOffer) {
       console.warn("[GUEST] Already processing an offer, ignoring duplicate");
       return;
@@ -316,13 +342,13 @@ export class MultiplayerClient {
       
       this._pc = new RTCPeerConnection({
         iceServers,
-        iceTransportPolicy: "relay",
+        iceTransportPolicy: "relay", // In production, forcing relay can improve stability; "all" is also an option
       });
 
       this._pc.onicecandidate = (e) => {
         if (e.candidate) {
           const json = e.candidate.toJSON();
-          console.log("[GUEST] Local ICE candidate found:", JSON.stringify(json));
+          console.log("[GUEST] Local ICE candidate found:", json.type, json.protocol);
           this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: json });
         }
       };
@@ -348,13 +374,14 @@ export class MultiplayerClient {
     } catch (e) {
       console.error("[GUEST] Error in handleOffer:", e);
     } finally {
-      this._handlingOffer = false; // Kilidi her durumda güvenle kaldırıyoruz
+      this._handlingOffer = false;
     }
   }
 
   async handleAnswer(sdp) {
     if (!this._pc) return;
     
+    // 🛡️ Duplicate-answer and race condition protection
     if (this._answering) {
       console.warn("[HOST] Already processing an answer, queuing...");
       return;
@@ -362,11 +389,11 @@ export class MultiplayerClient {
 
     this._answering = true;
     try {
-      // Eğer local description henüz bitmediyse state geçişini saniyeler bazında bekle
+      // If the host hasn't finished the local offer, wait in short loops
       if (this._pc.signalingState !== "have-local-offer") {
         console.warn("[HOST] State is", this._pc.signalingState, "— waiting for local offer to settle...");
         let checkCount = 0;
-        while (this._pc.signalingState !== "have-local-offer" && checkCount < 10) {
+        while (this._pc.signalingState !== "have-local-offer" && checkCount < 20) {
           await new Promise(r => setTimeout(r, 100));
           checkCount++;
         }
@@ -383,20 +410,20 @@ export class MultiplayerClient {
   }
 
   async handleIceCandidate(candidateData) {
-    if (!this._pc || !candidateData) return;
+    if (!candidateData) return;
     
-    // Eğer uzak açıklama henüz set edilmediyse adayı hemen ekleyemeyiz, state'in dolmasını bekleyelim
-    if (!this._pc.remoteDescription) {
-      console.log(`[${this.isHost ? "HOST" : "GUEST"}] Remote description not set yet, delaying candidate...`);
-      let waitCount = 0;
-      while (!this._pc.remoteDescription && waitCount < 20) {
-        await new Promise(r => setTimeout(r, 100));
-        waitCount++;
-      }
+    let waitCount = 0;
+      while ((!this._pc || !this._pc.remoteDescription) && waitCount < 50) {
+      await new Promise(r => setTimeout(r, 100)); // 100ms * 50 = max 5 seconds
+      waitCount++;
+    }
+
+    if (!this._pc || !this._pc.remoteDescription) {
+      console.error(`[${this.isHost ? "HOST" : "GUEST"}] Timeout! PeerConnection kurulamadı, aday çöpe gitti.`);
+      return;
     }
 
     try {
-      // Aday nesnesini tam bir RTCIceCandidate objesi olarak ayağa kaldırıp ekliyoruz
       const iceCandidate = new RTCIceCandidate(candidateData);
       await this._pc.addIceCandidate(iceCandidate);
       console.log(`[${this.isHost ? "HOST" : "GUEST"}] Added ICE candidate successfully:`, candidateData.type, candidateData.protocol);
@@ -406,20 +433,22 @@ export class MultiplayerClient {
   }
 
   hangUp() {
-    this._drawActive = false;
     if (this._pc) {
       this._pc.close();
       this._pc = null;
     }
     this.socket?.emit("call:hangup", { roomId: this.roomId });
+    
     this._handlingOffer = false;
     this._answering = false;
+    this._isStreamingInit = false; 
   }
 
   _bindWebRTCEvents() {
     if (this._webRTCBound || !this.socket) return;
     this._webRTCBound = true;
 
+    // Cleanup
     this.socket.off("call:offer");
     this.socket.off("call:answer");
     this.socket.off("call:ice-candidate");
