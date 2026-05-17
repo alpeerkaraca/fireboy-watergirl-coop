@@ -99,6 +99,9 @@ function showGuestWaitingScreen() {
   `;
   container.style.position = "relative";
 
+  // Request host to start streaming
+  multiplayer.socket?.emit("stream:start", { roomId: multiplayer.roomId });
+
   // Listen for incoming video stream
   multiplayer.onRemoteStream = (stream) => {
     const video = document.getElementById("remote-video");
@@ -115,19 +118,17 @@ function showGuestWaitingScreen() {
   };
 }
 
-// === Host: Start streaming canvas after SWF loads ===
+// === Host: Start streaming when guest requests ===
 
 function setupHostStream() {
-  // Wait for Ruffle canvas to appear, then start streaming
-  const check = setInterval(() => {
+  // Listen for guest's stream request, then start
+  multiplayer.socket?.on("stream:start-request", () => {
     const canvas = document.querySelector("#game-canvas canvas");
-    if (canvas && multiplayer.roomId) {
-      clearInterval(check);
+    if (canvas) {
       multiplayer.startStreaming(canvas);
       console.log("WebRTC stream started — canvas captured at 30fps");
     }
-  }, 200);
-  streamInterval = check;
+  });
 }
 
 // === Guest: Send WASD keys to host ===

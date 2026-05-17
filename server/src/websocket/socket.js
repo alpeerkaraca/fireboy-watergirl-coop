@@ -55,6 +55,11 @@ export function initSocket(httpServer) {
       leaveCurrentRoom(io, socket);
     });
 
+    socket.on("stream:start", (data) => {
+      // Guest requests host to start streaming
+      socket.to(data.roomId).emit("stream:start-request");
+    });
+
     socket.on("player:move", (data) => {
       socket.to(data.roomId).emit("player:moved", {
         playerId: socket.id,
