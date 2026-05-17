@@ -46,7 +46,7 @@ function startGame(temple) {
   const isOnline = multiplayer.isConnected && multiplayer.roomId;
   if (isOnline && multiplayer.isHost) {
     document.getElementById("game-title").textContent =
-      `HOST — Arrow Keys = Fireboy | Click Share when guest joins`;
+      `HOST — Arrow Keys = Fireboy | Streaming to Guest`;
     document.getElementById("game-online-status").textContent = "Live";
     document.getElementById("game-online-status").style.color = "#e74c3c";
     startGameAsHost(temple);
@@ -131,17 +131,8 @@ function showGuestWaitingScreen() {
 
 function setupHostStream() {
   multiplayer.socket?.on("stream:start-request", () => {
-    // Show button — getDisplayMedia requires a user gesture
-    const bar = document.querySelector(".injection-test-bar");
-    if (bar) {
-      bar.innerHTML = '<button id="btn-share-screen" style="background:#e74c3c;color:#fff;padding:8px 16px;border:none;border-radius:4px;cursor:pointer;font-weight:600">Click to Share Screen</button>' + bar.innerHTML;
-      document.getElementById("btn-share-screen").addEventListener("click", async () => {
-        document.getElementById("btn-share-screen").textContent = "Sharing...";
-        document.getElementById("btn-share-screen").disabled = true;
-        await multiplayer.startStreaming();
-        console.log("WebRTC stream started");
-      });
-    }
+    multiplayer.startStreaming();
+    console.log("WebRTC stream started — canvas captured at 30fps");
   });
 }
 

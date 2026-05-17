@@ -222,23 +222,19 @@ export class MultiplayerClient {
     console.log("[HOST] Fetching ICE servers...");
     const iceServers = await this._getIceServers();
     console.log("[HOST] ICE servers:", iceServers.length);
-    this._pc = new RTCPeerConnection({
-      iceServers,
-      iceTransportPolicy: "relay", // Force TURN relay — bypasses NAT issues
-    });
-
-    console.log("[HOST] Requesting getDisplayMedia...");
-    const stream = await navigator.mediaDevices.getDisplayMedia({
-      video: { frameRate: 30 },
-      audio: false,
-    });
-    console.log("[HOST] getDisplayMedia resolved — tracks:", stream.getVideoTracks().length);
+    this._pc = new RTCPeerConnection({ iceServers });
+    const canvas = document.querySelector("#game-canvas canvas");
+    if (!canvas) {
+      console.error("[HOST] No Ruffle canvas found for captureStream");
+      return;
+    }
+    console.log("[HOST] Capturing Ruffle canvas at 30fps...");
+    const stream = canvas.captureStream(30);
+    console.log("[HOST] captureStream resolved — tracks:", stream.getVideoTracks().length);
     const videoTrack = stream.getVideoTracks()[0];
     if (videoTrack) {
-      console.log("[HOST] Video track:", videoTrack.label, "enabled:", videoTrack.enabled);
+      console.log("[HOST] Video track:", videoTrack.label, "readyState:", videoTrack.readyState);
       this._pc.addTrack(videoTrack, stream);
-    } else {
-      console.error("[HOST] No video track in stream!");
     }
     videoTrack?.addEventListener("ended", () => {
       console.warn("[HOST] Video track ended");
