@@ -233,22 +233,21 @@ export class MultiplayerClient {
     
     this._pc = new RTCPeerConnection({ iceServers });
     
+    console.log("[HOST] Waiting 1.5s for Ruffle canvas to render first frame...");
+    await new Promise(r => setTimeout(r, 1500));
+    
     const canvas = document.querySelector("#game-canvas canvas");
     if (!canvas) {
-      console.error("[HOST] No Ruffle canvas found for captureStream");
+      console.error("[HOST] No Ruffle canvas found");
       return;
     }
-    
-    console.log("[HOST] Capturing Ruffle canvas at 30fps...");
+    console.log("[HOST] Canvas:", canvas.width, "x", canvas.height);
     const stream = canvas.captureStream(30);
-    console.log("[HOST] captureStream resolved — tracks:", stream.getVideoTracks().length);
     const videoTrack = stream.getVideoTracks()[0];
-    
     if (videoTrack) {
-      console.log("[HOST] Video track:", videoTrack.label, "readyState:", videoTrack.readyState);
+      console.log("[HOST] Video track readyState:", videoTrack.readyState);
       this._pc.addTrack(videoTrack, stream);
     }
-    
     videoTrack?.addEventListener("ended", () => {
       console.warn("[HOST] Video track ended");
       this.hangUp();

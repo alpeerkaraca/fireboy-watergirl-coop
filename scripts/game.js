@@ -103,22 +103,45 @@ function showGuestWaitingScreen() {
   multiplayer.socket?.emit("stream:start", { roomId: multiplayer.roomId });
 
   // Listen for incoming video stream
+  let _guestOverlay = null;
   multiplayer.onRemoteStream = (stream) => {
     console.log("[GUEST] onRemoteStream — tracks:", stream.getVideoTracks().length);
     const video = document.getElementById("remote-video");
-    if (video) {
-      video.srcObject = stream;
-      console.log("[GUEST] srcObject set, readyState:", video.readyState);
-      video.onloadedmetadata = () => {
-        console.log("[GUEST] loadedmetadata — videoWidth:", video.videoWidth, "videoHeight:", video.videoHeight);
-        video.play().then(() => {
-          console.log("[GUEST] Video playing — active:", !video.paused);
-        }).catch(e => console.error("[GUEST] play() failed:", e.message));
-      };
-      video.onerror = (e) => console.error("[GUEST] Video error:", video.error);
-      const statusP = document.querySelector("#game-canvas p");
-      if (statusP) statusP.textContent = "Stream connected — play!";
-    }
+    if (!video) return;
+
+    // Reset video element state to force re-decode
+    video.pause();
+    video.srcObject = null;
+    video.load();
+    video.muted = true;
+    video.autoplay = true;
+    video.playsInline = true;
+
+    video.srcObject = stream;
+    video.style.setProperty("border", "2px solid #4ecca3", "important");
+    video.style.setProperty("z-index", "10", "important");
+    console.log("[GUEST] srcObject set, readyState:", video.readyState);
+
+    video.onloadedmetadata = () => {
+      console.log("[GUEST] loadedmetadata —", video.videoWidth, "x", video.videoHeight);
+      video.play().catch(e => console.warn("[GUEST] autoplay blocked:", e.message));
+    };
+
+    // Click-to-start overlay for browser autoplay policy
+    _guestOverlay = document.createElement("div");
+    _guestOverlay.innerHTML = '<button style="padding:15px 30px;font-size:20px;cursor:pointer;background:#4ecca3;border:none;border-radius:8px;color:#fff;font-weight:600">Stream Sync</button>';
+    _guestOverlay.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:100;";
+    _guestOverlay.onclick = () => {
+      video.play().then(() => {
+        _guestOverlay.remove();
+        _guestOverlay = null;
+        console.log("[GUEST] Stream playing via gesture");
+      }).catch(e => console.error("[GUEST] Play failed:", e));
+    };
+    document.getElementById("game-canvas").appendChild(_guestOverlay);
+
+    const statusP = document.querySelector("#game-canvas p");
+    if (statusP) statusP.textContent = "Stream connected — click Sync Stream!";
   };
 
   multiplayer.onStreamDisconnected = () => {
