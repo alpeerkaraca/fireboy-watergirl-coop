@@ -1,0 +1,27 @@
+{
+  "name": "ruffle_web",
+  "type": "module",
+  "collaborators": [
+    "Ruffle LLC <ruffle@ruffle.rs>"
+  ],
+  "description": "Web (WASM) bindings to the Ruffle Flash player",
+  "version": "0.2.0",
+  "license": "MIT OR Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruffle-rs/ruffle"
+  },
+  "files": [
+    "ruffle_web_bg.wasm",
+    "ruffle_web.js",
+    "ruffle_web_bg.js",
+    "ruffle_web.d.ts"
+  ],
+  "main": "ruffle_web.js",
+  "homepage": "https://ruffle.rs",
+  "types": "ruffle_web.d.ts",
+  "sideEffects": [
+    "./ruffle_web.js",
+    "./snippets/*"
+  ]
+}
