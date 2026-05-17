@@ -215,64 +215,96 @@ export class MultiplayerClient {
   }
 
   async startStreaming() {
-    if (!this.isHost || !this.roomId) return;
+    if (!this.isHost || !this.roomId) {
+      console.warn("[HOST] startStreaming: not host or no room");
+      return;
+    }
+    console.log("[HOST] Fetching ICE servers...");
     const iceServers = await this._getIceServers();
+    console.log("[HOST] ICE servers:", iceServers.length);
     this._pc = new RTCPeerConnection({ iceServers });
 
-    // getDisplayMedia captures the full tab including WebGL canvas
+    console.log("[HOST] Requesting getDisplayMedia...");
     const stream = await navigator.mediaDevices.getDisplayMedia({
       video: { frameRate: 30 },
       audio: false,
     });
+    console.log("[HOST] getDisplayMedia resolved — tracks:", stream.getVideoTracks().length);
     const videoTrack = stream.getVideoTracks()[0];
-    if (videoTrack) this._pc.addTrack(videoTrack, stream);
-    videoTrack?.addEventListener("ended", () => this._pc?.close());
+    if (videoTrack) {
+      console.log("[HOST] Video track:", videoTrack.label, "enabled:", videoTrack.enabled);
+      this._pc.addTrack(videoTrack, stream);
+    } else {
+      console.error("[HOST] No video track in stream!");
+    }
+    videoTrack?.addEventListener("ended", () => {
+      console.warn("[HOST] Video track ended");
+      this._pc?.close();
+    });
 
-    // Send ICE candidates to peer
+    // ICE candidate logging
     this._pc.onicecandidate = (e) => {
       if (e.candidate) {
+        console.log("[HOST] ICE candidate:", e.candidate.type, e.candidate.protocol);
         this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: e.candidate });
+      } else {
+        console.log("[HOST] ICE gathering complete (null candidate)");
       }
     };
 
-    // Connection state handling
+    // Connection state
     this._pc.oniceconnectionstatechange = () => {
-      console.log("ICE state:", this._pc.iceConnectionState);
-      if (this._pc.iceConnectionState === "disconnected" || this._pc.iceConnectionState === "failed") {
+      const state = this._pc.iceConnectionState;
+      console.log("[HOST] ICE state:", state);
+      if (state === "disconnected" || state === "failed") {
+        console.warn("[HOST] ICE disconnected/failed");
         this.onStreamDisconnected?.();
       }
     };
 
+    this._pc.onconnectionstatechange = () => {
+      console.log("[HOST] Connection state:", this._pc.connectionState);
+    };
+
     // Create and send offer
+    console.log("[HOST] Creating offer...");
     const offer = await this._pc.createOffer();
     await this._pc.setLocalDescription(offer);
+    console.log("[HOST] Offer created, sending via socket");
     this.socket.emit("call:offer", { roomId: this.roomId, sdp: offer });
   }
 
   async handleOffer(sdp) {
     if (this.isHost) return;
+    console.log("[GUEST] Received offer, setting up peer connection...");
     const iceServers = await this._getIceServers();
+    console.log("[GUEST] ICE servers:", iceServers.length);
     this._pc = new RTCPeerConnection({ iceServers });
 
     this._pc.onicecandidate = (e) => {
       if (e.candidate) {
+        console.log("[GUEST] ICE candidate:", e.candidate.type);
         this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: e.candidate });
       }
     };
 
     this._pc.ontrack = (e) => {
+      console.log("[GUEST] ontrack fired — streams:", e.streams.length, "video tracks:", e.streams[0]?.getVideoTracks().length);
       this.onRemoteStream?.(e.streams[0]);
     };
 
     this._pc.oniceconnectionstatechange = () => {
+      console.log("[GUEST] ICE state:", this._pc.iceConnectionState);
       if (this._pc.iceConnectionState === "disconnected" || this._pc.iceConnectionState === "failed") {
         this.onStreamDisconnected?.();
       }
     };
 
+    console.log("[GUEST] Creating answer...");
     await this._pc.setRemoteDescription(new RTCSessionDescription(sdp));
     const answer = await this._pc.createAnswer();
     await this._pc.setLocalDescription(answer);
+    console.log("[GUEST] Answer sent via socket");
     this.socket.emit("call:answer", { roomId: this.roomId, sdp: answer });
   }
 

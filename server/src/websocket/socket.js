@@ -56,8 +56,23 @@ export function initSocket(httpServer) {
     });
 
     socket.on("stream:start", (data) => {
-      // Guest requests host to start streaming
+      console.log(`[WS] stream:start from ${socket.id} in room ${data.roomId}`);
       socket.to(data.roomId).emit("stream:start-request");
+    });
+
+    socket.on("call:offer", (data) => {
+      console.log(`[WS] call:offer from ${socket.id} in room ${data.roomId}`);
+      socket.to(data.roomId).emit("call:offer", { playerId: socket.id, sdp: data.sdp });
+    });
+
+    socket.on("call:answer", (data) => {
+      console.log(`[WS] call:answer from ${socket.id} in room ${data.roomId}`);
+      socket.to(data.roomId).emit("call:answer", { playerId: socket.id, sdp: data.sdp });
+    });
+
+    socket.on("call:ice-candidate", (data) => {
+      console.log(`[WS] call:ice-candidate from ${socket.id} in room ${data.roomId}`);
+      socket.to(data.roomId).emit("call:ice-candidate", { playerId: socket.id, candidate: data.candidate });
     });
 
     socket.on("player:move", (data) => {

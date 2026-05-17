@@ -104,14 +104,18 @@ function showGuestWaitingScreen() {
 
   // Listen for incoming video stream
   multiplayer.onRemoteStream = (stream) => {
+    console.log("[GUEST] onRemoteStream — tracks:", stream.getVideoTracks().length);
     const video = document.getElementById("remote-video");
     if (video) {
       video.srcObject = stream;
+      console.log("[GUEST] srcObject set, readyState:", video.readyState);
       video.onloadedmetadata = () => {
+        console.log("[GUEST] loadedmetadata — videoWidth:", video.videoWidth, "videoHeight:", video.videoHeight);
         video.play().then(() => {
-          console.log("[guest] Video playing — tracks:", stream.getVideoTracks().length);
-        });
+          console.log("[GUEST] Video playing — active:", !video.paused);
+        }).catch(e => console.error("[GUEST] play() failed:", e.message));
       };
+      video.onerror = (e) => console.error("[GUEST] Video error:", video.error);
       const statusP = document.querySelector("#game-canvas p");
       if (statusP) statusP.textContent = "Stream connected — play!";
     }
