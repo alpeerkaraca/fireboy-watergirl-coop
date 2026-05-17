@@ -233,13 +233,36 @@ export class MultiplayerClient {
     
     this._pc = new RTCPeerConnection({ iceServers });
 
-    console.log("[HOST] Requesting screen capture...");
-    const stream = await navigator.mediaDevices.getDisplayMedia({
-      video: { frameRate: 30 },
-      audio: false,
-    });
+    // Wait 2s for Ruffle WebGL canvas to render its first frame
+    console.log("[HOST] Waiting 2s for Ruffle canvas to initialize...");
+    await new Promise(r => setTimeout(r, 2000));
+
+    const ruffleCanvas = document.querySelector("#game-canvas canvas");
+    if (!ruffleCanvas) {
+      console.error("[HOST] No Ruffle canvas found");
+      return;
+    }
+    console.log("[HOST] Ruffle canvas:", ruffleCanvas.width, "x", ruffleCanvas.height);
+
+    // Create a proxy 2D canvas — draw WebGL canvas onto it each frame
+    // WebGL canvases don't stream properly via captureStream() without
+    // preserveDrawingBuffer. A 2D canvas fixes this.
+    const proxy = document.createElement("canvas");
+    proxy.width = ruffleCanvas.width || 800;
+    proxy.height = ruffleCanvas.height || 640;
+    const proxyCtx = proxy.getContext("2d");
+
+    this._drawActive = true;
+    const drawLoop = () => {
+      if (!this._drawActive || !ruffleCanvas.isConnected) return;
+      try { proxyCtx.drawImage(ruffleCanvas, 0, 0); } catch(e) {}
+      requestAnimationFrame(drawLoop);
+    };
+    const stream = proxy.captureStream(30);
+    requestAnimationFrame(drawLoop);
+
     const videoTrack = stream.getVideoTracks()[0];
-    console.log("[HOST] Screen capture — track:", videoTrack?.label, "readyState:", videoTrack?.readyState);
+    console.log("[HOST] Proxy canvas stream — track readyState:", videoTrack?.readyState);
     if (videoTrack) this._pc.addTrack(videoTrack, stream);
     videoTrack?.addEventListener("ended", () => {
       console.warn("[HOST] Video track ended");
@@ -383,6 +406,7 @@ export class MultiplayerClient {
   }
 
   hangUp() {
+    this._drawActive = false;
     if (this._pc) {
       this._pc.close();
       this._pc = null;

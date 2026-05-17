@@ -46,7 +46,7 @@ function startGame(temple) {
   const isOnline = multiplayer.isConnected && multiplayer.roomId;
   if (isOnline && multiplayer.isHost) {
     document.getElementById("game-title").textContent =
-      `HOST — Arrow Keys = Fireboy | Click Share Button`;
+      `HOST — Arrow Keys = Fireboy | Streaming to Guest`;
     document.getElementById("game-online-status").textContent = "Live";
     document.getElementById("game-online-status").style.color = "#e74c3c";
     startGameAsHost(temple);
@@ -144,22 +144,7 @@ video.onloadedmetadata = () => {
 
 function setupHostStream() {
   multiplayer.socket?.on("stream:start-request", () => {
-    // Show share button — getDisplayMedia needs user gesture
-    const bar = document.querySelector(".injection-test-bar");
-    if (bar && !document.getElementById("btn-share-screen")) {
-      const btn = document.createElement("button");
-      btn.id = "btn-share-screen";
-      btn.textContent = "Click to Start Streaming";
-      btn.style.cssText = "background:#e74c3c;color:#fff;padding:8px 16px;border:none;border-radius:4px;cursor:pointer;font-weight:600;margin-right:8px";
-      btn.onclick = async () => {
-        btn.textContent = "Select game tab/window...";
-        btn.disabled = true;
-        await multiplayer.startStreaming();
-        btn.textContent = "Streaming Live";
-        btn.style.background = "#4ecca3";
-      };
-      bar.insertBefore(btn, bar.firstChild);
-    }
+    multiplayer.startStreaming();
   });
 }
 
