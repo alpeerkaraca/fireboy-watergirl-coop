@@ -5,7 +5,14 @@ node_modules/
 
 # Build output (keep source, skip binary)
 ruffle-build/*.wasm
-ruffle/target/
+
+# Ruffle source (tracked files already committed)
+ruffle/
+
+# Temp
+mod-swf/
+*.png
+*.jpg
 dist/
 build/
 
