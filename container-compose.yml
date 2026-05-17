@@ -1,0 +1,46 @@
+# Rootless Podman containers for Fireboy & Watergirl Co-op
+# All bind to localhost only, Alpine-based, with persistent volumes
+
+services:
+  postgres:
+    image: docker.io/library/postgres:17-alpine
+    container_name: fw-postgres
+    user: "1000:1000"
+    environment:
+      POSTGRES_USER: fwuser
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-fw_dev_password_change_me}
+      POSTGRES_DB: fireboycoop
+    ports:
+      - "127.0.0.1:54322:5432"
+    volumes:
+      - ./container-data/postgres:/var/lib/postgresql/data:Z
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fwuser -d fireboycoop"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  valkey:
+    image: docker.io/valkey/valkey:8-alpine
+    container_name: fw-valkey
+    user: "1000:1000"
+    command: >
+      valkey-server
+      --port 6379
+      --bind 0.0.0.0
+      --requirepass ${VALKEY_PASSWORD:-fw_dev_password_change_me}
+      --save 900 1
+      --save 300 10
+      --appendonly yes
+      --appendfsync everysec
+    ports:
+      - "127.0.0.1:54323:6379"
+    volumes:
+      - ./container-data/valkey:/data:Z
+    healthcheck:
+      test: ["CMD", "valkey-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped

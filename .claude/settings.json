@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm run dev)",
+      "Bash(npm run start)",
+      "Bash(npm test)",
+      "Bash(npm run test:coverage)",
+      "Bash(npm run security:audit)",
+      "Bash(npm run perf:audit)",
+      "Bash(npx prisma *)",
+      "Bash(npx serve *)",
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Bash(git log *)",
+      "Bash(node *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs');const p=process.env.CLAUDE_CODE_FILE_PATH;if(p&&p.endsWith('.js')){try{require(p)}catch(e){}}\""
+          }
+        ]
+      }
+    ]
+  },
+  "projectRules": [
+    "Never use prisma.$queryRaw or prisma.$executeRaw — always use parameterized queries",
+    "Never remove Zod validation from API route handlers",
+    "Never store secrets in code — use environment variables",
+    "Never increase auth rate limits without user approval",
+    "Never skip JWT verification on protected routes",
+    "Always validate input at API boundaries with Zod",
+    "Always use Helmet in production Express configs",
+    "WebSocket messages must be < 100KB",
+    "All new API routes need rate limiting consideration",
+    "Run `npm run security:audit` before pushing backend changes"
+  ],
+  "model": "claude-opus-4-7"
+}

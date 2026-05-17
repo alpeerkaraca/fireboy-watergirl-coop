@@ -1,0 +1,79 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build output
+ruffle-build/
+ruffle/target/
+dist/
+build/
+
+# Database
+*.db
+*.db-journal
+prisma/dev.db
+prisma/dev.db-journal
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+.audits/
+
+# Temp
+temp-*/
+tmp/
+*.tmp
+
+# Playwright
+playwright-report/
+test-results/
+
+# Gemini / AI
+gemini_prompt.txt
+gemini_feedback*.txt
+gemini_diff.txt
+gemini_mt_feedback.txt
+gemini_infra_feedback.txt
+gemini_audit_feedback.txt
+
+# Claude
+.claude/plans/
+.claude/memory/
+.claude/settings.local.json
+claude_review_report.md
+
+# Tools (keep packaging scripts)
+tools/node_modules/
+tools/ffdec*
+tools/lib/
+tools/flashlib/
+
+# Container data
+container-data/
+
+# Tests
+coverage/
+.nyc_output/
+
+# Misc
+*.pem
+*.key
+.cert/
