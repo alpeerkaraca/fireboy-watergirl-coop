@@ -92,7 +92,7 @@ function showGuestWaitingScreen() {
       <p style="font-size:18px;color:#4ecca3;margin-bottom:8px">Connected to Host</p>
       <p style="font-size:14px;color:#888;margin-bottom:20px">Waiting for video stream...</p>
       <video id="remote-video" autoplay playsinline muted
-             style="max-width:100%;max-height:100%;background:#111;border-radius:4px"></video>
+             style="width:800px;height:640px;background:#111;border-radius:4px;display:block"></video>
       <p style="font-size:12px;color:#666;margin-top:12px">Use <b>W A D</b> keys to control Watergirl</p>
       <p style="font-size:11px;color:#555">You are viewing the Host's screen via WebRTC</p>
     </div>
@@ -107,8 +107,13 @@ function showGuestWaitingScreen() {
     const video = document.getElementById("remote-video");
     if (video) {
       video.srcObject = stream;
-      document.querySelector("#game-canvas p") &&
-        (document.querySelector("#game-canvas p").textContent = "Stream connected — play!");
+      video.onloadedmetadata = () => {
+        video.play().then(() => {
+          console.log("[guest] Video playing — tracks:", stream.getVideoTracks().length);
+        });
+      };
+      const statusP = document.querySelector("#game-canvas p");
+      if (statusP) statusP.textContent = "Stream connected — play!";
     }
   };
 
