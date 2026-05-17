@@ -14,6 +14,11 @@ export class MultiplayerClient {
     this.onPeerKey = null;
     this.onRoomUpdate = null;
     this.onStageComplete = null;
+    
+    // WebRTC Durum Kontrol Flagleri
+    this._pc = null;
+    this._handlingOffer = false;
+    this._answering = false;
   }
 
   get isConnected() {
@@ -66,7 +71,6 @@ export class MultiplayerClient {
     return new Promise((resolve, reject) => {
       if (!this.token) return reject(new Error("Not authenticated"));
 
-      // Dynamic import for Socket.IO client
       import("https://cdn.socket.io/4.8.1/socket.io.esm.min.js").then(({ io }) => {
         this.socket = io(API_BASE, {
           auth: { token: this.token },
@@ -96,27 +100,30 @@ export class MultiplayerClient {
     }
     this.roomId = null;
     this.isHost = false;
-    this.peer = null;
+    if (this._pc) {
+      this._pc.close();
+      this._pc = null;
+    }
   }
 
   _bindEvents() {
-    this.socket.on("player:moved", (data) => {
+    this.socket.off("player:moved").on("player:moved", (data) => {
       this.onPeerMove?.(data);
     });
 
-    this.socket.on("player:acted", (data) => {
+    this.socket.off("player:acted").on("player:acted", (data) => {
       this.onPeerAction?.(data);
     });
 
-    this.socket.on("player:key", (data) => {
+    this.socket.off("player:key").on("player:key", (data) => {
       this.onPeerKey?.(data);
     });
 
-    this.socket.on("room:update", (data) => {
+    this.socket.off("room:update").on("room:update", (data) => {
       this.onRoomUpdate?.(data);
     });
 
-    this.socket.on("stage:completed", (data) => {
+    this.socket.off("stage:completed").on("stage:completed", (data) => {
       this.onStageComplete?.(data);
     });
   }
@@ -148,6 +155,7 @@ export class MultiplayerClient {
       this.socket.emit("room:leave");
       this.roomId = null;
       this.isHost = false;
+      this.hangUp();
     }
   }
 
@@ -222,37 +230,40 @@ export class MultiplayerClient {
     console.log("[HOST] Fetching ICE servers...");
     const iceServers = await this._getIceServers();
     console.log("[HOST] ICE servers:", iceServers.length);
+    
     this._pc = new RTCPeerConnection({ iceServers });
+    
     const canvas = document.querySelector("#game-canvas canvas");
     if (!canvas) {
       console.error("[HOST] No Ruffle canvas found for captureStream");
       return;
     }
+    
     console.log("[HOST] Capturing Ruffle canvas at 30fps...");
     const stream = canvas.captureStream(30);
     console.log("[HOST] captureStream resolved — tracks:", stream.getVideoTracks().length);
     const videoTrack = stream.getVideoTracks()[0];
+    
     if (videoTrack) {
       console.log("[HOST] Video track:", videoTrack.label, "readyState:", videoTrack.readyState);
       this._pc.addTrack(videoTrack, stream);
     }
+    
     videoTrack?.addEventListener("ended", () => {
       console.warn("[HOST] Video track ended");
-      this._pc?.close();
+      this.hangUp();
     });
 
-    // ICE candidate logging — serialize to plain object for Socket.IO
     this._pc.onicecandidate = (e) => {
       if (e.candidate) {
         const json = e.candidate.toJSON();
-        console.log("[HOST] ICE candidate:", json.type, json.protocol, json.candidate?.substring(0, 30));
+        console.log("[HOST] Local ICE candidate found:", json.type, json.protocol);
         this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: json });
       } else {
         console.log("[HOST] ICE gathering complete (null candidate)");
       }
     };
 
-    // Connection state
     this._pc.oniceconnectionstatechange = () => {
       const state = this._pc.iceConnectionState;
       console.log("[HOST] ICE state:", state);
@@ -266,7 +277,6 @@ export class MultiplayerClient {
       console.log("[HOST] Connection state:", this._pc.connectionState);
     };
 
-    // Create and send offer
     console.log("[HOST] Creating offer...");
     const offer = await this._pc.createOffer();
     await this._pc.setLocalDescription(offer);
@@ -276,69 +286,77 @@ export class MultiplayerClient {
 
   async handleOffer(sdp) {
     if (this.isHost) return;
-    // Guard against duplicate offers (Socket.IO may replay events on reconnect)
+    
     if (this._handlingOffer) {
       console.warn("[GUEST] Already processing an offer, ignoring duplicate");
       return;
     }
+    
     this._handlingOffer = true;
     console.log("[GUEST] Received offer, setting up peer connection...");
-    const iceServers = await this._getIceServers();
-    console.log("[GUEST] ICE servers:", iceServers.length);
-    this._pc = new RTCPeerConnection({
-      iceServers,
-      iceTransportPolicy: "relay",
-    });
-
-    this._pc.onicecandidate = (e) => {
-      if (e.candidate) {
-        const json = e.candidate.toJSON();
-        console.log("[GUEST] ICE candidate:", json.type, json.protocol);
-        this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: json });
-      }
-    };
-
-    this._pc.ontrack = (e) => {
-      console.log("[GUEST] ontrack fired — streams:", e.streams.length, "video tracks:", e.streams[0]?.getVideoTracks().length);
-      this.onRemoteStream?.(e.streams[0]);
-    };
-
-    this._pc.oniceconnectionstatechange = () => {
-      console.log("[GUEST] ICE state:", this._pc.iceConnectionState);
-      if (this._pc.iceConnectionState === "disconnected" || this._pc.iceConnectionState === "failed") {
-        this.onStreamDisconnected?.();
-      }
-    };
-
-    console.log("[GUEST] Creating answer...");
+    
     try {
+      const iceServers = await this._getIceServers();
+      console.log("[GUEST] ICE servers:", iceServers.length);
+      
+      this._pc = new RTCPeerConnection({
+        iceServers,
+        iceTransportPolicy: "relay",
+      });
+
+      this._pc.onicecandidate = (e) => {
+        if (e.candidate) {
+          const json = e.candidate.toJSON();
+          console.log("[GUEST] Local ICE candidate found:", json.type, json.protocol);
+          this.socket.emit("call:ice-candidate", { roomId: this.roomId, candidate: json });
+        }
+      };
+
+      this._pc.ontrack = (e) => {
+        console.log("[GUEST] ontrack fired — streams:", e.streams.length, "video tracks:", e.streams[0]?.getVideoTracks().length);
+        this.onRemoteStream?.(e.streams[0]);
+      };
+
+      this._pc.oniceconnectionstatechange = () => {
+        console.log("[GUEST] ICE state:", this._pc.iceConnectionState);
+        if (this._pc.iceConnectionState === "disconnected" || this._pc.iceConnectionState === "failed") {
+          this.onStreamDisconnected?.();
+        }
+      };
+
       await this._pc.setRemoteDescription(new RTCSessionDescription(sdp));
+      console.log("[GUEST] Creating answer...");
+      const answer = await this._pc.createAnswer();
+      await this._pc.setLocalDescription(answer);
+      console.log("[GUEST] Answer sent via socket");
+      this.socket.emit("call:answer", { roomId: this.roomId, sdp: answer });
     } catch (e) {
-      if (e.message.includes("wrong state")) {
-        console.warn("[GUEST] Already processing an offer, ignoring duplicate");
-        return;
-      }
-      throw e;
+      console.error("[GUEST] Error in handleOffer:", e);
+    } finally {
+      this._handlingOffer = false; // Kilidi her durumda güvenle kaldırıyoruz
     }
-    const answer = await this._pc.createAnswer();
-    await this._pc.setLocalDescription(answer);
-    console.log("[GUEST] Answer sent via socket");
-    this.socket.emit("call:answer", { roomId: this.roomId, sdp: answer });
   }
 
   async handleAnswer(sdp) {
     if (!this._pc) return;
-    // Serialize answer processing to prevent race conditions
+    
     if (this._answering) {
       console.warn("[HOST] Already processing an answer, queuing...");
       return;
     }
-    if (this._pc.signalingState !== "have-local-offer") {
-      console.warn("[HOST] State is", this._pc.signalingState, "— cannot accept answer");
-      return;
-    }
+
     this._answering = true;
     try {
+      // Eğer local description henüz bitmediyse state geçişini saniyeler bazında bekle
+      if (this._pc.signalingState !== "have-local-offer") {
+        console.warn("[HOST] State is", this._pc.signalingState, "— waiting for local offer to settle...");
+        let checkCount = 0;
+        while (this._pc.signalingState !== "have-local-offer" && checkCount < 10) {
+          await new Promise(r => setTimeout(r, 100));
+          checkCount++;
+        }
+      }
+
       console.log("[HOST] Setting remote answer...");
       await this._pc.setRemoteDescription(new RTCSessionDescription(sdp));
       console.log("[HOST] Remote answer set — state:", this._pc.signalingState);
@@ -349,13 +367,26 @@ export class MultiplayerClient {
     }
   }
 
-  async handleIceCandidate(candidate) {
-    if (!this._pc) return;
+  async handleIceCandidate(candidateData) {
+    if (!this._pc || !candidateData) return;
+    
+    // Eğer uzak açıklama henüz set edilmediyse adayı hemen ekleyemeyiz, state'in dolmasını bekleyelim
+    if (!this._pc.remoteDescription) {
+      console.log(`[${this.isHost ? "HOST" : "GUEST"}] Remote description not set yet, delaying candidate...`);
+      let waitCount = 0;
+      while (!this._pc.remoteDescription && waitCount < 20) {
+        await new Promise(r => setTimeout(r, 100));
+        waitCount++;
+      }
+    }
+
     try {
-      await this._pc.addIceCandidate(new RTCIceCandidate(candidate));
-      console.log(`[${this.isHost ? "HOST" : "GUEST"}] Added ICE candidate:`, candidate.type, candidate.protocol);
+      // Aday nesnesini tam bir RTCIceCandidate objesi olarak ayağa kaldırıp ekliyoruz
+      const iceCandidate = new RTCIceCandidate(candidateData);
+      await this._pc.addIceCandidate(iceCandidate);
+      console.log(`[${this.isHost ? "HOST" : "GUEST"}] Added ICE candidate successfully:`, candidateData.type, candidateData.protocol);
     } catch(e) {
-      console.warn(`[${this.isHost ? "HOST" : "GUEST"}] ICE candidate failed:`, e.message);
+      console.warn(`[${this.isHost ? "HOST" : "GUEST"}] ICE candidate failed to add:`, e.message);
     }
   }
 
@@ -365,35 +396,36 @@ export class MultiplayerClient {
       this._pc = null;
     }
     this.socket?.emit("call:hangup", { roomId: this.roomId });
+    this._handlingOffer = false;
+    this._answering = false;
   }
 
   _bindWebRTCEvents() {
-    // Use once() to prevent duplicate processing from reconnects
-    const bindOffer = () => {
-      this.socket.once("call:offer", async (data) => {
-        await this.handleOffer(data.sdp);
-        bindOffer(); // re-register for next cycle
-      });
-    };
-    const bindAnswer = () => {
-      this.socket.once("call:answer", async (data) => {
-        await this.handleAnswer(data.sdp);
-        bindAnswer();
-      });
-    };
-    const bindIce = () => {
-      this.socket.once("call:ice-candidate", async (data) => {
-        await this.handleIceCandidate(data.candidate);
-        bindIce(); // re-register for more candidates
-      });
-    };
-    this.socket.once("call:hangup", () => {
+    if (!this.socket) return;
+
+    // ESKİ LISTENERS'LARI TEMİZLE (Kökten Çözüm)
+    this.socket.off("call:offer");
+    this.socket.off("call:answer");
+    this.socket.off("call:ice-candidate");
+    this.socket.off("call:hangup");
+
+    // CANLI VE GÜVENLİ DİNLEYİCİLERİ BAĞLA
+    this.socket.on("call:offer", async (data) => {
+      await this.handleOffer(data.sdp);
+    });
+
+    this.socket.on("call:answer", async (data) => {
+      await this.handleAnswer(data.sdp);
+    });
+
+    this.socket.on("call:ice-candidate", async (data) => {
+      await this.handleIceCandidate(data.candidate);
+    });
+
+    this.socket.on("call:hangup", () => {
       this.hangUp();
       this.onStreamDisconnected?.();
     });
-    bindOffer();
-    bindAnswer();
-    bindIce();
   }
 }
 
