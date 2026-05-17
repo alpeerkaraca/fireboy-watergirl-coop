@@ -1,0 +1,42 @@
+[
+  {
+    "temple": "Crystal Temple",
+    "level": 5,
+    "tileMap": null,
+    "startFire": null,
+    "startWater": null,
+    "finish1": null,
+    "finish2": null,
+    "mechanisms": []
+  },
+  {
+    "temple": "Crystal Temple",
+    "level": 5,
+    "tileMap": null,
+    "startFire": null,
+    "startWater": null,
+    "finish1": null,
+    "finish2": null,
+    "mechanisms": []
+  },
+  {
+    "temple": "Crystal Temple",
+    "level": 5,
+    "tileMap": null,
+    "startFire": null,
+    "startWater": null,
+    "finish1": null,
+    "finish2": null,
+    "mechanisms": []
+  },
+  {
+    "temple": "Crystal Temple",
+    "level": 4,
+    "tileMap": null,
+    "startFire": null,
+    "startWater": null,
+    "finish1": null,
+    "finish2": null,
+    "mechanisms": []
+  }
+]
