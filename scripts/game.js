@@ -237,9 +237,21 @@ function updateAuthUI() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   initLanding();
   setGameStartCallback(startGame);
+
+  // Auto-verify magic link token BEFORE showing auth modal
+  const urlParams = new URLSearchParams(window.location.search);
+  const magicToken = urlParams.get("token");
+  if (magicToken) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+    try {
+      const data = await multiplayer.verifyToken(magicToken);
+      if (data) console.log("Magic link verified — logged in as", data.user?.username);
+    } catch(e) { console.warn("Auto-verify failed:", e.message); }
+  }
+
   initAuthUI();
   initLobbyUI(() => {
     const t = document.querySelector(".temple-card.active")?.dataset?.temple || "forest";
@@ -268,22 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
     destroyGame();
     backToMenu();
   });
-
-  // Auto-verify token from magic link URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const magicToken = urlParams.get("token");
-  if (magicToken) {
-    window.history.replaceState({}, document.title, window.location.pathname);
-    (async () => {
-      try {
-        const data = await multiplayer.verifyToken(magicToken);
-        if (data) {
-          updateAuthUI();
-          console.log("Magic link verified — logged in as", data.user?.username);
-        }
-      } catch(e) { console.warn("Auto-verify failed:", e.message); }
-    })();
-  }
 
   updateAuthUI();
   document.addEventListener("auth:done", updateAuthUI);
