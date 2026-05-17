@@ -111,17 +111,23 @@ function showGuestWaitingScreen() {
     // Reset + force decode
     video.pause();
     video.srcObject = null;
-    video.load();
+
     video.muted = true;
     video.autoplay = true;
     video.playsInline = true;
+
     video.srcObject = stream;
     video.style.border = "2px solid #4ecca3";
 
-    video.onloadedmetadata = () => {
-      console.log("[GUEST] loadedmetadata —", video.videoWidth, "x", video.videoHeight, "paused:", video.paused);
-      video.play().catch(e => console.warn("[GUEST] play rejected:", e.message));
-    };
+ideo.onloadedmetadata = () => {
+    console.log("[GUEST] loadedmetadata —", video.videoWidth, "x", video.videoHeight);
+    video.play().catch(e => {
+      console.warn("[GUEST] Browser blocked autoplay, waiting for user click:", e.message);
+      document.body.addEventListener('click', () => {
+        video.play();
+      }, { once: true });
+    });
+  };
     video.onplaying = () => console.log("[GUEST] Video onplaying fired");
 
     const statusP = document.querySelector("#game-canvas p");
